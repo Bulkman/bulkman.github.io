@@ -248,7 +248,7 @@ svg {
 
 .buttons {
   display: flex;
-  align-self: end;
+  align-self: flex-end;
 }
 
 .arrow {

@@ -488,6 +488,7 @@
                 dataType: 'json',
                 success: function (response) {
                     $warehouseSelect.empty();
+                    $warehouseTable.empty();
                     $warehouseSelect.append('<option value=""selected>Всі відділення</option>');
 
                     $warehouseTable.append(
@@ -529,31 +530,33 @@
                                 '</span>\n' +
                                 '</section>');
 
-                            $warehouseTable.append(
-                                '<section class="table__body tbody">\n' +
+                            $warehouseTable.append('<section class="table__body tbody">\n' +
                                 '      <span class="tbody__text time">\n' +
-                                '        Пн: 08:00-22:00\n' +
-                                '         <div class="btn" type="button" data-toggle="collapse" data-target="#coll" aria-expanded="false" aria-controls="collapseExample">\n' +
+                                '        <div class="dropdown">\n' +
+                                '   </div>\n' +
+                                '          Пн: 08:00-22:00\n' +
+                                '          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
                                 '          <label class="switch">\n' +
                                 '             <input class="toggle" type="checkbox">\n' +
                                 '             <span class="slider"></span>\n' +
                                 '           </label>\n' +
-                                '         </div>\n' +
-                                '        <div class="collapse table__dropdown" id="coll">\n' +
-                                // '          <span>'+'Пн:'+ warehouse.Shedule.Monday +'</span>\n' +
-                                // '          <span>' + 'Вт:' +'warehouse.Shedule.Tuesday' + '</span>\n' +
-                                // '          <span>' + 'Ср:' +'warehouse.Shedule.Wednesday' + '</span>\n' +
-                                // '          <span>' + 'Чт:' +'warehouse.Shedule.Thursday' + '</span>\n' +
-                                // '          <span>' + 'Пт:' +'warehouse.Shedule.Friday' + '</span>\n' +
-                                // '          <span>' + 'Сб:' +'warehouse.Shedule.Saturday' + '</span>\n' +
-                                // '          <span>' + 'Вс:' +'warehouse.Shedule.Sunday' + '</span>\n' +
-                                // '          <span>Показати на мапі</span>\n' +
+                                '         </button>\n' +
+                                '       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
+                                '          <span>Пн: 08:00-21:00</span>\n' +
+                                '          <span>Вт: 08:00-21:00</span>\n' +
+                                '          <span>Cр: 08:00-21:00</span>\n' +
+                                '          <span>Чт: 08:00-21:00</span>\n' +
+                                '          <span>Пт: 08:00-21:00</span>\n' +
+                                '          <span>Сб: 09:00-21:00</span>\n' +
+                                '          <span>Нд: 11:00-21:00</span>\n' +
+                                '          <span>Показати на мапі</span>\n' +
                                 '      </div>\n' +
                                 '      </span>\n' +
                                 '        </section>');
+
+                            $warehouseTable.append('<section class="table__body tbody">\n' +
+                                '<span class="tbody__text">' + warehouse.TotalMaxWeightAllowed + ' кг</span></section>');
                         });
-
-
 
                         $warehouseSelect.val(response.data[0] ? response.data[0].Ref : '').change();
                     }
