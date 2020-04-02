@@ -49,7 +49,7 @@
                     fill="black" fill-opacity="0.54"/>
             </svg>
 
-              <input id="city-selector" class="search__select">
+              <input id="city-selector" class="search__select" autocomplete="off">
               <div id="city-selector-container" class="city-selector-container" style="display: none;">
 
               </div>
@@ -154,44 +154,44 @@
             <span class="table__text">Вага до</span>
         </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text dep">
         Відд 3240
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text address">
         	вул. Пирогівський шлях, 135
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text time">
         Пн: 08:00-22:00
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text">
         1100 кг
       </span>
-        </srction>
+        </section>
 
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text dep">
         Відд 3240
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text address">
         	вул. Пирогівський шлях, 135
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text time">
         <div class="dropdown">
    </div>
@@ -213,28 +213,28 @@
           <span>Показати на мапі</span>
       </div>
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text">
         1100 кг
       </span>
-        </srction>
+        </section>
 
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text dep">
         Відд 3240
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text address">
         	вул. Пирогівсь135
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text time">
         Пн: 08:00-22:00
          <div class="btn" type="button" data-toggle="collapse" data-target="#coll" aria-expanded="false" aria-controls="collapseExample">
@@ -254,28 +254,28 @@
           <span>Показати на мапі</span>
       </div>
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text">
         1100 кг
       </span>
-        </srction>
+        </section>
 
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text dep">
         Відд 3240
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text address">
         	вул. Пирогівський шлях, 135
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text time">
         Пн: 08:00-22:00
          <div class="btn" type="button" data-toggle="collapse" data-target="#coll1" aria-expanded="false" aria-controls="collapseExample">
@@ -295,13 +295,13 @@
           <span>Показати на мапі</span>
       </div>
       </span>
-        </srction>
+        </section>
 
-        <srction class="table__body tbody">
+        <section class="table__body tbody">
       <span class="tbody__text">
         1100 кг
       </span>
-        </srction>
+        </section>
 
 
     </secrion>
@@ -323,13 +323,14 @@
         var warehousesList = [];
         var citiesList = [];
         var currentLang = 'uk';//new URLSearchParams(location.href).get('lang');
+        var selectedCityRef = '';
 
         var typeWarehouse = '9a68df70-0267-42a8-bb5c-37f427e36ee4';
         var typePostmap = 'f9316480-5f2d-425d-bc2c-ac7cd29decf0';
         var typeOffice = '841339c7-591a-42e2-8233-7a0a00f0ed6f';
 
         var categoryWarehouse = 'Branch';
-        var categoryPostmap = 'Postmap';
+        var categoryPostmap = 'Postomat';
         var categoryOffice = 'Office';
 
         function getSettlementAreas() {
@@ -443,8 +444,13 @@
 
                         $citySelectorContainer.empty();
                         response.data.forEach(function (city) {
-                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '" style="display: none;">' + city.Description + '</a>');
-                            $citySelectorContainer.append('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '" style="display: none;">' + city.DescriptionRu + '</a>');
+                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
+                            $citySelectorContainer.append('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.DescriptionRu + '</a>');
+                            $citySelectorContainer.find('a').off().on('click', function() {
+                                selectedCityRef = this.dataset.ref;
+                                $citySelect.val(this.text).change();
+                            });
+
                         });
                     }
                 }
@@ -459,6 +465,8 @@
             } else if(warehouse.CategoryOfWarehouse === categoryOffice) {
                 return 'Пункт «Нова Пошта» №' + warehouse.Number;
             }
+
+            return 'Отделение №' + warehouse.Number;
         }
 
         function getWarehouses(cityRef, page, limit) {
@@ -515,7 +523,7 @@
         });
 
         $citySelect.change(function () {
-            getWarehouses($(this).val(), 1, 10000000);
+            getWarehouses(selectedCityRef, 1, 10000000);
         });
 
         $citySelect.keyup(function () {
@@ -536,15 +544,16 @@
 
         $citySelect.focusin(function() {
             $citySelectorContainer.show();
+            // if($citySelectorContainer.children().length > 0) {
+            //     $citySelectorContainer.show();
+            // }
         });
 
         $citySelect.focusout(function() {
-            $citySelectorContainer.hide();
+            setTimeout(function() { $citySelectorContainer.hide(); }, 350);
         });
 
         $findWarehouseBtn.click(function () {
-            $('.result_list').empty();
-
             getFilteredResult(getFilter(), warehousesList);
         });
 
