@@ -325,6 +325,14 @@
         var currentLang = 'uk';//new URLSearchParams(location.href).get('lang');
         var selectedCityRef = '';
 
+        var typeWarehouse = '9a68df70-0267-42a8-bb5c-37f427e36ee4';
+        var typePostmap = 'f9316480-5f2d-425d-bc2c-ac7cd29decf0';
+        var typeOffice = '841339c7-591a-42e2-8233-7a0a00f0ed6f';
+
+        var categoryWarehouse = 'Branch';
+        var categoryPostmap = 'Postmap';
+        var categoryOffice = 'Office';
+
         function getSettlementAreas() {
             var userLang = navigator.language || navigator.userLanguage;
 
@@ -449,6 +457,16 @@
             });
         }
 
+        function getWarehouseName(warehouse) {
+            if(warehouse.CategoryOfWarehouse === categoryWarehouse) {
+                return 'Отделение №' + warehouse.Number;
+            } else if(warehouse.CategoryOfWarehouse === categoryPostmap) {
+                return 'Почтомат №' + warehouse.Number;
+            } else if(warehouse.CategoryOfWarehouse === categoryOffice) {
+                return 'Пункт «Нова Пошта» №' + warehouse.Number;
+            }
+        }
+
         function getWarehouses(cityRef, page, limit) {
             $.ajax({
                 type: 'POST',
@@ -471,7 +489,7 @@
                     if (response.success) {
                         warehousesList = response.data;
                         warehousesList.forEach(function (warehouse) {
-                            $warehouseSelect.append('<option value="' + warehouse.Ref + '">' + warehouse.Description + '</option>');
+                            $warehouseSelect.append('<option value="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</option>');
                         });
 
                         $warehouseSelect.val(response.data[0] ? response.data[0].Ref : '').change();
