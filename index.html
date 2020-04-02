@@ -49,7 +49,7 @@
                     fill="black" fill-opacity="0.54"/>
             </svg>
 
-              <input id="city-selector" class="search__select">
+              <input id="city-selector" class="search__select" autocomplete="off">
               <div id="city-selector-container" class="city-selector-container" style="display: none;">
 
               </div>
@@ -435,8 +435,12 @@
 
                         $citySelectorContainer.empty();
                         response.data.forEach(function (city) {
-                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '" style="display: none;">' + city.Description + '</a>');
-                            $citySelectorContainer.append('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '" style="display: none;">' + city.DescriptionRu + '</a>');
+                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
+                            $citySelectorContainer.append('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.DescriptionRu + '</a>');
+                            $citySelectorContainer.on('click', 'a', function() {
+                                $citySelect.val(this.text);
+                            });
+
                         });
                     }
                 }
@@ -518,10 +522,13 @@
 
         $citySelect.focusin(function() {
             $citySelectorContainer.show();
+            // if($citySelectorContainer.children().length > 0) {
+            //     $citySelectorContainer.show();
+            // }
         });
 
         $citySelect.focusout(function() {
-            $citySelectorContainer.hide();
+            setTimeout(function() { $citySelectorContainer.hide(); }, 350);
         });
 
         $findWarehouseBtn.click(function () {
