@@ -154,6 +154,7 @@
         var $isSelfServingCheckbox = $('#is-self-serve');
         var $clearBtn = $('#clear-btn');
         var $warehouseTable = $('#table__container');
+        var pattern_street = /a/g;
 
         var districts = [
             {
@@ -490,7 +491,7 @@
                     $warehouseTable.append('      ' +
                         '<section class="table__body tbody">\n' +
                         '<span class="tbody__text">\n'
-                        + warehouse.ShortAddress +
+                        + warehouse.Description.split(':').slice(1).join('') +
                         '</span>\n' +
                         '</section>');
 
@@ -519,7 +520,7 @@
                         '        </section>');
 
                     $warehouseTable.append('<section class="table__body tbody weight">\n' +
-                        '<span class="tbody__text">' + warehouse.TotalMaxWeightAllowed + ' кг</span></section>');
+                        '<span class="tbody__text">' + warehouse.PlaceMaxWeightAllowed + ' кг</span></section>');
                 }
             });
         }
@@ -684,12 +685,6 @@
 
         // getNearestWarehouses(getFilter());
     });
-</script>
-
-<script>
-    document.querySelector('.active').onclick = function() {
-        document.querySelector('.active').style.display = (document.querySelector('.active').style.display === 'none') ? '' : 'hidden'
-    }
 </script>
 </body>
 </html>
