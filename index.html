@@ -321,7 +321,8 @@
         var $isSelfServingCheckbox = $('#is-self-serve');
         var $clearBtn = $('#n_clear-btn');
         var warehousesList = [];
-        var currentLang = new URLSearchParams(location.href).get('lang');
+        var citiesList = [];
+        var currentLang = 'uk';//new URLSearchParams(location.href).get('lang');
 
         function getSettlementAreas() {
             var userLang = navigator.language || navigator.userLanguage;
@@ -429,25 +430,14 @@
                 }),
                 dataType: 'json',
                 success: function (response) {
-                    $citySelectorContainer.empty();
-
                     if (response.success) {
-                        var userLang = navigator.language || navigator.userLanguage;
-                        if(userLang === 'ru-RU') {
-                            $citySelectorContainer.append('<a data-value="Виберіть насел. пункт">Виберіть насел. пункт</a>');
-                        } else {
-                            $citySelectorContainer.append('<a data-value="Виберіть насел. пункт">Виберіть насел. пункт</a>');
-                        }
+                        citiesList = response.data;
 
+                        $citySelectorContainer.empty();
                         response.data.forEach(function (city) {
-                            $citySelectorContainer.empty();
-                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
-                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.Description + '</a>');
+                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '" style="display: none;">' + city.Description + '</a>');
+                            $citySelectorContainer.append('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '" style="display: none;">' + city.DescriptionRu + '</a>');
                         });
-
-                        if (response.data.length > 0) {
-                            $citySelect.val(response.data[0] ? response.data[0].Ref : '').change();
-                        }
                     }
                 }
             });
@@ -511,7 +501,19 @@
         });
 
         $citySelect.keyup(function () {
+            var filter = $citySelect.val().toUpperCase();
 
+            for (i = 0; i < citiesList.length; i++) {
+                var city = citiesList[i];
+                var ruName = city.DescriptionRu;
+                var ukName = city.Description;
+
+                if (ruName.toUpperCase().indexOf(filter) > -1 || ukName.toUpperCase().indexOf(filter) > -1) {
+                    $citySelectorContainer.find('[data-ref=' + city.Ref + '][data-lang=' + currentLang + ']').show();
+                } else {
+                    $citySelectorContainer.find('[data-ref=' + city.Ref + ']').hide();
+                }
+            }
         });
 
         $findWarehouseBtn.click(function () {
@@ -519,8 +521,6 @@
 
             getFilteredResult(getFilter(), warehousesList);
         });
-
-
 
         getSettlementAreas();
 
