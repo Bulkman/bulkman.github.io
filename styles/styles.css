@@ -457,19 +457,18 @@ svg {
 
 .time .slider:before {
   height: 20px;
-  width: 20px;
+  width: 40px;
   background: url("../images/time_toggle.svg") no-repeat;
 }
 
 
 .time .toggle:checked + .slider:before {
-  background: url("../images/time_toggle_up.svg");
+  background: url("../images/time_toggle_up.svg") no-repeat;
 }
 
 .time .btn {
   padding: 0!important;
   margin-right: 15px;
-  z-index: 1;
 }
 
 .table__dropdown {
@@ -539,5 +538,6 @@ svg {
   outline: none !important;
   box-shadow: none!important;
 }
+
 
 
