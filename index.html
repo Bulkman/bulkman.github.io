@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./styles/styles.css">
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
@@ -49,13 +49,10 @@
                     fill="black" fill-opacity="0.54"/>
             </svg>
 
-            <select id="city-selector" class="search__select">
-              <option value="" disabled selected>Виберіть насел. пункт</option>
-              <option value="1">Київ</option>
-              <option value="2">Київ</option>
-              <option value="3">Київ</option>
-              <option value="4">Київ</option>
-            </select>
+              <input id="city-selector" class="search__select">
+              <div id="city-selector-container">
+
+              </div>
           </div>
 
           <div class="select-container">
@@ -277,49 +274,268 @@
 </section>
 
 </body>
-<script>
-
-    $(function() {
+<script type="text/javascript">
+    $(function () {
         // Init section
         var $findWarehouseBtn = $('#find-warehouse-btn');
-        var $districtSelect = $("#district-selector");
-        var $citySelect = $("#city-selector");
-        var $warehouseSelect = $("#warehouse-selector");
-        var $warehouseTypeSelect = $("#warehouse-type-selector");
-        var $isWorkingOnSundayCheckbox = $("#is-work-on-sunday");
-        var $isSelfServingCheckbox = $("#is-self-serve");
-        var $clearBtn = $('#clear-btn');
+        var $districtSelect = $('#district-selector');
+        var $citySelect = $('#city-selector');
+        var $citySelectorContainer = $('#city-selector-container');
+        var $warehouseSelect = $('#warehouse-selector');
+        var $warehouseTypeSelect = $('#warehouse-type-selector');
+        var $isWorkingOnSundayCheckbox = $('#is-work-on-sunday');
+        var $isSelfServingCheckbox = $('#is-self-serve');
+        var $clearBtn = $('#n_clear-btn');
+        var warehousesList = [];
+
+        function getSettlementAreas() {
+            var userLang = navigator.language || navigator.userLanguage;
+
+            $districtSelect.empty();
+
+            if(userLang === 'ru-RU') {
+                $districtSelect.append('<option value="" selected>Виберите область</option>');
+                $districtSelect.append('<option value="dcaad3d6-4b33-11e4-ab6d-005056801329">АРК</option>');
+                $districtSelect.append('<option value="dcaad5a7-4b33-11e4-ab6d-005056801329">Винницкая</option>');
+                $districtSelect.append('<option value="dcaad676-4b33-11e4-ab6d-005056801329">Волынская</option>');
+                $districtSelect.append('<option value="dcaad735-4b33-11e4-ab6d-005056801329">Днепропетровская</option>');
+                $districtSelect.append('<option value="dcaad81c-4b33-11e4-ab6d-005056801329">Донецкая</option>');
+                $districtSelect.append('<option value="dcaad8fb-4b33-11e4-ab6d-005056801329">Житомирская</option>');
+                $districtSelect.append('<option value="dcaad993-4b33-11e4-ab6d-005056801329">Закарпатская</option>');
+                $districtSelect.append('<option value="dcaada26-4b33-11e4-ab6d-005056801329">Запорожская</option>');
+                $districtSelect.append('<option value="dcaadac6-4b33-11e4-ab6d-005056801329">Ивано-Франковская</option>');
+                $districtSelect.append('<option value="dcaadb64-4b33-11e4-ab6d-005056801329">Киевская</option>');
+                $districtSelect.append('<option value="dcaadbf9-4b33-11e4-ab6d-005056801329">Кировоградская</option>');
+                $districtSelect.append('<option value="dcaadc91-4b33-11e4-ab6d-005056801329">Луганская</option>');
+                $districtSelect.append('<option value="dcaadc91-4b33-11e4-ab6d-005056801329">Львовская</option>');
+                $districtSelect.append('<option value="dcaaddd7-4b33-11e4-ab6d-005056801329">Николаевская</option>');
+                $districtSelect.append('<option value="dcaade6d-4b33-11e4-ab6d-005056801329">Одесская</option>');
+                $districtSelect.append('<option value="dcaadf02-4b33-11e4-ab6d-005056801329">Полтавская</option>');
+                $districtSelect.append('<option value="dcaadfa0-4b33-11e4-ab6d-005056801329">Ровненская</option>');
+                $districtSelect.append('<option value="dcaae036-4b33-11e4-ab6d-005056801329">Сумская</option>');
+                $districtSelect.append('<option value="dcaae303-4b33-11e4-ab6d-005056801329">Тернопольская</option>');
+                $districtSelect.append('<option value="dcaae3a1-4b33-11e4-ab6d-005056801329">Харьковская</option>');
+                $districtSelect.append('<option value="dcaae44b-4b33-11e4-ab6d-005056801329">Херсонская</option>');
+                $districtSelect.append('<option value="dcaae4e5-4b33-11e4-ab6d-005056801329">Хмельницкая</option>');
+                $districtSelect.append('<option value="dcaae57c-4b33-11e4-ab6d-005056801329">Черкасская</option>');
+                $districtSelect.append('<option value="dcaae60e-4b33-11e4-ab6d-005056801329">Черновицкая</option>');
+                $districtSelect.append('<option value="dcaae6a8-4b33-11e4-ab6d-005056801329">Черниговская</option>');
+            } else {
+                $districtSelect.append('<option value=""selected>Виберіть область</option>');
+                $districtSelect.append('<option value="dcaad3d6-4b33-11e4-ab6d-005056801329">АРК</option>');
+                $districtSelect.append('<option value="dcaad5a7-4b33-11e4-ab6d-005056801329">Вінницька</option>');
+                $districtSelect.append('<option value="dcaad676-4b33-11e4-ab6d-005056801329">Волинська</option>');
+                $districtSelect.append('<option value="dcaad735-4b33-11e4-ab6d-005056801329">Дніпропетровська</option>');
+                $districtSelect.append('<option value="dcaad81c-4b33-11e4-ab6d-005056801329">Донецька</option>');
+                $districtSelect.append('<option value="dcaad8fb-4b33-11e4-ab6d-005056801329">Житомирська</option>');
+                $districtSelect.append('<option value="dcaad993-4b33-11e4-ab6d-005056801329">Закарпатська</option>');
+                $districtSelect.append('<option value="dcaada26-4b33-11e4-ab6d-005056801329">Запорізька</option>');
+                $districtSelect.append('<option value="dcaadac6-4b33-11e4-ab6d-005056801329">Івано-Франківська</option>');
+                $districtSelect.append('<option value="dcaadb64-4b33-11e4-ab6d-005056801329">Київська</option>');
+                $districtSelect.append('<option value="dcaadbf9-4b33-11e4-ab6d-005056801329">Кіровоградська</option>');
+                $districtSelect.append('<option value="dcaadc91-4b33-11e4-ab6d-005056801329">Луганська</option>');
+                $districtSelect.append('<option value="dcaadd3a-4b33-11e4-ab6d-005056801329">Львівська</option>');
+                $districtSelect.append('<option value="dcaaddd7-4b33-11e4-ab6d-005056801329">Миколаївська</option>');
+                $districtSelect.append('<option value="dcaade6d-4b33-11e4-ab6d-005056801329">Одеська</option>');
+                $districtSelect.append('<option value="dcaadf02-4b33-11e4-ab6d-005056801329">Полтавська</option>');
+                $districtSelect.append('<option value="dcaadfa0-4b33-11e4-ab6d-005056801329">Рівненська</option>');
+                $districtSelect.append('<option value="dcaae036-4b33-11e4-ab6d-005056801329">Сумська</option>');
+                $districtSelect.append('<option value="dcaae303-4b33-11e4-ab6d-005056801329">Тернопільська</option>');
+                $districtSelect.append('<option value="dcaae3a1-4b33-11e4-ab6d-005056801329">Харківська</option>');
+                $districtSelect.append('<option value="dcaae44b-4b33-11e4-ab6d-005056801329">Херсонська</option>');
+                $districtSelect.append('<option value="dcaae4e5-4b33-11e4-ab6d-005056801329">Хмельницька</option>');
+                $districtSelect.append('<option value="dcaae57c-4b33-11e4-ab6d-005056801329">Черкаська</option>');
+                $districtSelect.append('<option value="dcaae60e-4b33-11e4-ab6d-005056801329">Чернівецька</option>');
+                $districtSelect.append('<option value="dcaae6a8-4b33-11e4-ab6d-005056801329">Чернігівська</option>');
+            }
+
+            $districtSelect.val('').change();
+
+            // $.ajax({
+            //     type: 'POST',
+            //     url: 'https://api.novaposhta.ua/v2.0/json/',
+            //     data: JSON.stringify({
+            //         apiKey: '',
+            //         modelName: 'Address',
+            //         calledMethod: 'getSettlementAreas',
+            //         methodProperties: {}
+            //     }),
+            //     dataType: 'json',
+            //     success: function (response) {
+            //         $districtSelect.empty();
+            //         $districtSelect.append('<option value=""selected>Виберіть область</option>');
+            //
+            //         if (response.success) {
+            //             response.data.forEach(function (area) {
+            //                 $districtSelect.append('<option value="' + area.Ref + '">' + area.Description + '</option>');
+            //             });
+            //
+            //             $districtSelect.val(response.data[0] ? response.data[0].Ref : '').change();
+            //         }
+            //
+            //     }
+            // });
+        }
+
+        function getSettlements(areaRef, page, limit) {
+            $.ajax({
+                type: 'POST',
+                url: 'https://api.novaposhta.ua/v2.0/json/',
+                data: JSON.stringify({
+                    apiKey: '',
+                    modelName: 'AddressGeneral',
+                    calledMethod: 'getSettlements',
+                    methodProperties: {
+                        AreaRef: areaRef,
+                        Warehouse: '1',
+                        Page: page,
+                        Limit: limit
+                    }
+                }),
+                dataType: 'json',
+                success: function (response) {
+                    $citySelectorContainer.empty();
+
+                    if (response.success) {
+                        var userLang = navigator.language || navigator.userLanguage;
+                        if(userLang === 'ru-RU') {
+                            $citySelectorContainer.append('<a data-value="Виберіть насел. пункт">Виберіть насел. пункт</a>');
+                        } else {
+                            $citySelectorContainer.append('<a data-value="Виберіть насел. пункт">Виберіть насел. пункт</a>');
+                        }
+
+                        response.data.forEach(function (city) {
+                            $citySelectorContainer.empty();
+                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
+                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.Description + '</a>');
+                        });
+
+                        if (response.data.length > 0) {
+                            $citySelect.val(response.data[0] ? response.data[0].Ref : '').change();
+                        }
+                    }
+                }
+            });
+        }
+
+        function getWarehouses(cityRef, page, limit) {
+            $.ajax({
+                type: 'POST',
+                url: 'https://api.novaposhta.ua/v2.0/json/',
+                data: JSON.stringify({
+                    apiKey: '',
+                    modelName: 'AddressGeneral',
+                    calledMethod: 'getWarehouses',
+                    methodProperties: {
+                        SettlementRef: cityRef,
+                        Page: page,
+                        Limit: limit
+                    }
+                }),
+                dataType: 'json',
+                success: function (response) {
+                    $warehouseSelect.empty();
+                    $warehouseSelect.append('<option value=""selected>Всі відділення</option>');
+
+                    if (response.success) {
+                        warehousesList = response.data;
+                        warehousesList.forEach(function (warehouse) {
+                            $warehouseSelect.append('<option value="' + warehouse.Ref + '">' + warehouse.Description + '</option>');
+                        });
+
+                        $warehouseSelect.val(response.data[0] ? response.data[0].Ref : '').change();
+                    }
+                }
+            });
+        }
 
         function getFilter() {
             // Possible filter
             return {
-                district: $districtSelect.val(),
-                city: $citySelect.val(),
+                warehouseCategory: $warehouseTypeSelect.val(),
                 warehouse: $warehouseSelect.val(),
-                type: $warehouseTypeSelect.val(),
-                isSundayWork: $isWorkingOnSundayCheckbox.is(':checked'),
-                selfServing: $isSelfServingCheckbox.is(':checked')
-            }
+                sunday: $isWorkingOnSundayCheckbox.is(':checked'),
+                selfService: $isSelfServingCheckbox.is(':checked')
+            };
         }
 
-        $findWarehouseBtn.click(function () {
-            $.ajax({
-                type: 'POST',
-                url: 'https://novaposhta.ua/shop/office/getnearestwarenhouse',
-                data: {
-                    filter: getFilter(),
-                    type: 'list'
-                },
-                dataType: 'json',
-                success: function (json) {
-                    if (json) {
-
-                    } else {
-
-                    }
+        function getFilteredResult(filter, warehousesList) {
+            warehousesList.forEach(function (warehouse) {
+                if ((warehouse.Ref === filter.warehouse || filter.warehouse === '')) {
+                    $('.result_list').append('<li>' + warehouse.Description + '</li>');
                 }
             });
+        }
+
+        $districtSelect.change(function () {
+            getSettlements($(this).val(), 1, 10000000);
         });
+
+        $citySelect.change(function () {
+            getWarehouses($(this).val(), 1, 10000000);
+        });
+
+        $citySelect.keyup(function () {
+
+        });
+
+        $findWarehouseBtn.click(function () {
+            $('.result_list').empty();
+
+            getFilteredResult(getFilter(), warehousesList);
+        });
+
+
+
+        getSettlementAreas();
+
+        // function clearFilterInputs() {
+        //     $districtSelect.val("").change();
+        //     $citySelect.val("").change();
+        //     $warehouseSelect.val("").change();
+        //     $warehouseTypeSelect.val("").change();
+        //     $isWorkingOnSundayCheckbox.prop('checked', false);
+        //     $isSelfServingCheckbox.prop('checked', false);
+        // }
+
+        // function getNearestWarehouses(filter) {
+        //     if(navigator.geolocation) {
+        //         navigator.geolocation.getCurrentPosition(function(position) {
+        //             $.ajax({
+        //                 type: 'POST',
+        //                 url: '/shop/office/getnearestwarenhouse',
+        //                 data: {
+        //                     x: parseFloat(position.coords.longitude),
+        //                     y: parseFloat(position.coords.latitude),
+        //                     filter: filter,
+        //                     type: 'list'
+        //                 },
+        //                 dataType: 'json',
+        //                 success: function (json) {
+        //                     if (json) {
+        //                         $(".offices_wrap .offices").show();
+        //                         $(".offices_wrap .offices tbody").html(json.html);
+        //                     } else {
+        //                         $(".offices_wrap .offices tbody").html('<tr><td>' + appParameters.tr_notfound + '</td></tr>');
+        //                     }
+        //                 }
+        //             });
+        //         }, function(err) {
+        //         }, { timeout: 10 * 1000, maximumAge: 5 * 60 * 1000 });
+        //     } else {
+        //     }
+        // }
+
+        // $findWarehouseBtn.click(function () {
+        //     getNearestWarehouses(getFilter());
+        // });
+
+        // $clearBtn.click(function () {
+        //     clearFilterInputs();
+        //     getNearestWarehouses(getFilter());
+        // });
+
+        // getNearestWarehouses(getFilter());
     });
 </script>
 </body>
