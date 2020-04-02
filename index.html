@@ -153,6 +153,7 @@
         var $isWorkingOnSundayCheckbox = $('#is-work-on-sunday');
         var $isSelfServingCheckbox = $('#is-self-serve');
         var $clearBtn = $('#clear-btn');
+        var $warehouseTable = $('#table__container');
 
         var districts = [
             {
@@ -284,7 +285,7 @@
         var warehousesList = [];
         var citiesList = [];
 
-        var currentLang = 'uk';//new URLSearchParams(location.href).get('lang');
+        var currentLang = new URLSearchParams(location.href).get('lang') || 'uk';
         var selectedCityRef = '';
         var selectedDistrictRef = '';
         var selectedWarehouseRef = '';
@@ -296,7 +297,6 @@
         var categoryWarehouse = 'Branch';
         var categoryPostmap = 'Postomat';
         var categoryOffice = 'Office';
-        var $warehouseTable = $('#table__container');
 
         function getSettlementAreas() {
             $districtSelectorContainer.empty();
@@ -418,72 +418,10 @@
                 dataType: 'json',
                 success: function (response) {
                     $warehouseSelectorContainer.empty();
-                    $warehouseTable.empty();
-
-                    $warehouseTable.append(
-                        '<section class="table__head">\n' +
-                        '<span class="table__text dep">Відділення/<br>Почтомат</span>\n' +
-                        '</section>'
-                    );
-                    $warehouseTable.append('' +
-                        '<section class="table__head">\n' +
-                        '<span class="table__text">Адреса</span>\n' +
-                        '</section>');
-
-                    $warehouseTable.append('' +
-                        '<section class="table__head">\n' +
-                        '<span class="table__text">Графік роботи</span>\n' +
-                        '</section>');
-
-                    $warehouseTable.append('' +
-                        '<section class="table__head">\n' +
-                        '<span class="table__text">Вага до</span>\n' +
-                        '</section>');
 
                     if (response.success) {
                         warehousesList = response.data;
                         warehousesList.forEach(function (warehouse) {
-                            $warehouseTable.append('      ' +
-                                '<section class="table__body tbody">\n' +
-                                '<span class="tbody__text dep">\n'
-                                 + getWarehouseName(warehouse) +
-                                '</span>\n' +
-                                '</section>');
-
-                            $warehouseTable.append('      ' +
-                                '<section class="table__body tbody">\n' +
-                                '<span class="tbody__text">\n'
-                                + warehouse.ShortAddress +
-                                '</span>\n' +
-                                '</section>');
-
-                            $warehouseTable.append('<section class="table__body tbody">\n' +
-                                '      <span class="tbody__text time">\n' +
-                                '        <div class="dropdown">\n' +
-                                '   </div>\n' +
-                                '          Пн: 08:00-22:00\n' +
-                                '          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
-                                '          <label class="switch">\n' +
-                                '             <input class="toggle" type="checkbox">\n' +
-                                '             <span class="slider"></span>\n' +
-                                '           </label>\n' +
-                                '         </button>\n' +
-                                '       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
-                                '          <span>Пн: 08:00-21:00</span>\n' +
-                                '          <span>Вт: 08:00-21:00</span>\n' +
-                                '          <span>Cр: 08:00-21:00</span>\n' +
-                                '          <span>Чт: 08:00-21:00</span>\n' +
-                                '          <span>Пт: 08:00-21:00</span>\n' +
-                                '          <span>Сб: 09:00-21:00</span>\n' +
-                                '          <span>Нд: 11:00-21:00</span>\n' +
-                                '          <span>Показати на мапі</span>\n' +
-                                '      </div>\n' +
-                                '      </span>\n' +
-                                '        </section>');
-
-                            $warehouseTable.append('<section class="table__body tbody">\n' +
-                                '<span class="tbody__text">' + warehouse.TotalMaxWeightAllowed + ' кг</span></section>');
-
                             var ukA = $('<a data-value="' + warehouse.Description + '" data-lang="uk" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
                             var ruA = $('<a data-value="' + warehouse.DescriptionRu + '" data-lang="ru" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
 
@@ -510,16 +448,78 @@
             // Possible filter
             return {
                 warehouseCategory: $warehouseTypeSelect.val(),
-                warehouse: $warehouseSelect.val(),
+                warehouse: selectedWarehouseRef,
                 sunday: $isWorkingOnSundayCheckbox.is(':checked'),
                 selfService: $isSelfServingCheckbox.is(':checked')
             };
         }
 
         function getFilteredResult(filter, warehousesList) {
+            $warehouseTable.empty();
+
+            $warehouseTable.append(
+                    '<section class="table__head">\n' +
+                    '<span class="table__text dep">Відділення/<br>Почтомат</span>\n' +
+                    '</section>'
+            );
+
+            $warehouseTable.append('' +
+                    '<section class="table__head">\n' +
+                    '<span class="table__text">Адреса</span>\n' +
+                    '</section>');
+
+            $warehouseTable.append('' +
+                    '<section class="table__head">\n' +
+                    '<span class="table__text">Графік роботи</span>\n' +
+                    '</section>');
+
+            $warehouseTable.append('' +
+                    '<section class="table__head">\n' +
+                    '<span class="table__text">Вага до</span>\n' +
+                    '</section>');
+
             warehousesList.forEach(function (warehouse) {
                 if ((warehouse.Ref === filter.warehouse || filter.warehouse === '')) {
-                    $('.result_list').append('<li>' + warehouse.Description + '</li>');
+                    $warehouseTable.append('      ' +
+                          '<section class="table__body tbody">\n' +
+                          '<span class="tbody__text dep">\n'
+                          + getWarehouseName(warehouse) +
+                          '</span>\n' +
+                          '</section>');
+
+                    $warehouseTable.append('      ' +
+                          '<section class="table__body tbody">\n' +
+                          '<span class="tbody__text">\n'
+                          + warehouse.ShortAddress +
+                          '</span>\n' +
+                          '</section>');
+
+                    $warehouseTable.append('<section class="table__body tbody">\n' +
+                          '      <span class="tbody__text time">\n' +
+                          '        <div class="dropdown">\n' +
+                          '   </div>\n' +
+                          '          Пн: 08:00-22:00\n' +
+                          '          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
+                          '          <label class="switch">\n' +
+                          '             <input class="toggle" type="checkbox">\n' +
+                          '             <span class="slider"></span>\n' +
+                          '           </label>\n' +
+                          '         </button>\n' +
+                          '       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
+                          '          <span>Пн: 08:00-21:00</span>\n' +
+                          '          <span>Вт: 08:00-21:00</span>\n' +
+                          '          <span>Cр: 08:00-21:00</span>\n' +
+                          '          <span>Чт: 08:00-21:00</span>\n' +
+                          '          <span>Пт: 08:00-21:00</span>\n' +
+                          '          <span>Сб: 09:00-21:00</span>\n' +
+                          '          <span>Нд: 11:00-21:00</span>\n' +
+                          '          <span>Показати на мапі</span>\n' +
+                          '      </div>\n' +
+                          '      </span>\n' +
+                          '        </section>');
+
+                    $warehouseTable.append('<section class="table__body tbody">\n' +
+                          '<span class="tbody__text">' + warehouse.TotalMaxWeightAllowed + ' кг</span></section>');
                 }
             });
         }
@@ -534,11 +534,25 @@
         }
 
         $districtSelect.change(function () {
+            if($districtSelect.val() === '') {
+              selectedDistrictRef = ''
+            }
+
             getSettlements(selectedDistrictRef, 1, 10000000);
         });
 
         $citySelect.change(function () {
+            if($citySelect.val() === '') {
+                selectedCityRef = ''
+            }
+
             getWarehouses(selectedCityRef, 1, 10000000);
+        });
+
+        $warehouseSelect.change(function () {
+            if($warehouseSelect.val() === '') {
+              selectedWarehouseRef = ''
+            }
         });
 
         $districtSelect.keyup(function () {
@@ -620,8 +634,6 @@
             getFilteredResult(getFilter(), warehousesList);
         });
 
-        getSettlementAreas();
-
         $('#collapse-content').on('show.bs.collapse', function () {
             $('#collapsable-section-title').text('Закрити розширений пошук');
             $('#collapsable-section-shevron').prop('checked', true);
@@ -635,6 +647,8 @@
         $clearBtn.click(function () {
             clearFilterInputs();
         });
+
+        getSettlementAreas();
 
         // function getNearestWarehouses(filter) {
         //     if(navigator.geolocation) {
