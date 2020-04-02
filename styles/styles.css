@@ -490,7 +490,7 @@ svg {
   margin-bottom: 7px;
 }
 
-.city-selector-container {
+.selector-container {
   height: 400px;
   position: absolute;
   width: 250px;
@@ -505,7 +505,7 @@ svg {
   overflow-y: scroll;
 }
 
-.city-selector-container a {
+.selector-container a {
   display: block;
   cursor: pointer;
 }
