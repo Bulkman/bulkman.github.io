@@ -464,6 +464,7 @@ svg {
 
 .time .toggle:checked + .slider:before {
   background: url("../images/time_toggle_up.svg");
+  z-index: 1;
 }
 
 .time .btn {
@@ -511,5 +512,7 @@ svg {
   text-align: center;
   color: #7D7D7D;
   transform: none !important;
+  top: -130px!important;
+  left: 25px!important;
 }
 
