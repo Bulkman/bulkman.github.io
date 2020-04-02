@@ -225,66 +225,149 @@
         var categoryOffice = 'Office';
         var $warehouseTable = $('#table__container');
 
+        var districts = [
+            {
+                Ref: 'dcaad3d6-4b33-11e4-ab6d-005056801329',
+                Description: 'АРК',
+                DescriptionRu: 'АРК'
+            },
+            {
+                Ref: 'dcaad5a7-4b33-11e4-ab6d-005056801329',
+                Description: 'Вінницька',
+                DescriptionRu: 'Винницкая'
+            },
+            {
+                Ref: 'dcaad676-4b33-11e4-ab6d-005056801329',
+                Description: 'Волинська',
+                DescriptionRu: 'Волынская'
+            },
+            {
+                Ref: 'dcaad735-4b33-11e4-ab6d-005056801329',
+                Description: 'Дніпропетровська',
+                DescriptionRu: 'Днепропетровская'
+            },
+            {
+                Ref: 'dcaad81c-4b33-11e4-ab6d-005056801329',
+                Description: 'Донецька',
+                DescriptionRu: 'Донецкая'
+            },
+            {
+                Ref: 'dcaad8fb-4b33-11e4-ab6d-005056801329',
+                Description: 'Житомирська',
+                DescriptionRu: 'Житомирская'
+            },
+            {
+                Ref: 'dcaad993-4b33-11e4-ab6d-005056801329',
+                Description: 'Закарпатська',
+                DescriptionRu: 'Закарпатская'
+            },
+            {
+                Ref: 'dcaada26-4b33-11e4-ab6d-005056801329',
+                Description: 'Запорізька',
+                DescriptionRu: 'Запорожская'
+            },
+            {
+                Ref: 'dcaadac6-4b33-11e4-ab6d-005056801329',
+                Description: 'Івано-Франківська',
+                DescriptionRu: 'Ивано-Франковская'
+            },
+            {
+                Ref: 'dcaadb64-4b33-11e4-ab6d-005056801329',
+                Description: 'Київська',
+                DescriptionRu: 'Киевская'
+            },
+            {
+                Ref: 'dcaadbf9-4b33-11e4-ab6d-005056801329',
+                Description: 'Кіровоградська',
+                DescriptionRu: 'Кировоградская'
+            },
+            {
+                Ref: 'dcaadc91-4b33-11e4-ab6d-005056801329',
+                Description: 'Луганська',
+                DescriptionRu: 'Луганская'
+            },
+            {
+                Ref: 'dcaadc91-4b33-11e4-ab6d-005056801329',
+                Description: 'Львівська',
+                DescriptionRu: 'Львовская'
+            },
+            {
+                Ref: 'dcaaddd7-4b33-11e4-ab6d-005056801329',
+                Description: 'Миколаївська',
+                DescriptionRu: 'Николаевская'
+            },
+            {
+                Ref: 'dcaade6d-4b33-11e4-ab6d-005056801329',
+                Description: 'Одеська',
+                DescriptionRu: 'Одесская'
+            },
+            {
+                Ref: 'dcaadf02-4b33-11e4-ab6d-005056801329',
+                Description: 'Полтавська',
+                DescriptionRu: 'Полтавская'
+            },
+            {
+                Ref: 'dcaadfa0-4b33-11e4-ab6d-005056801329',
+                Description: 'Рівненська',
+                DescriptionRu: 'Ровненская'
+            },
+            {
+                Ref: 'dcaae036-4b33-11e4-ab6d-005056801329',
+                Description: 'Сумська',
+                DescriptionRu: 'Сумская'
+            },
+            {
+                Ref: 'dcaae303-4b33-11e4-ab6d-005056801329',
+                Description: 'Тернопільська',
+                DescriptionRu: 'Тернопольская'
+            },
+            {
+                Ref: 'dcaae3a1-4b33-11e4-ab6d-005056801329',
+                Description: 'Харківська',
+                DescriptionRu: 'Харьковская'
+            },
+            {
+                Ref: 'dcaae44b-4b33-11e4-ab6d-005056801329',
+                Description: 'Херсонська',
+                DescriptionRu: 'Херсонская'
+            },
+            {
+                Ref: 'dcaae4e5-4b33-11e4-ab6d-005056801329',
+                Description: 'Хмельницька',
+                DescriptionRu: 'Хмельницкая'
+            },
+            {
+                Ref: 'dcaae57c-4b33-11e4-ab6d-005056801329',
+                Description: 'Черкаська',
+                DescriptionRu: 'Черкасская'
+            },
+            {
+                Ref: 'dcaae60e-4b33-11e4-ab6d-005056801329',
+                Description: 'Чернівецька',
+                DescriptionRu: 'Черновицкая'
+            },
+            {
+                Ref: 'dcaae6a8-4b33-11e4-ab6d-005056801329',
+                Description: 'Чернігівська',
+                DescriptionRu: 'Черниговская'
+            },
+        ];
+
         function getSettlementAreas() {
-            var userLang = navigator.language || navigator.userLanguage;
-
             $districtSelectorContainer.empty();
+            districts.forEach(function (district) {
+                var ukA = $('<a data-value="' + district.Description + '" data-lang="uk" data-ref="' + district.Ref + '">' + district.Description + '</a>');
+                var ruA = $('<a data-value="' + district.DescriptionRu + '" data-lang="ru" data-ref="' + district.Ref + '">' + district.DescriptionRu + '</a>');
 
-            if(userLang === 'ru-RU') {
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="">Виберите область</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaad5a7-4b33-11e4-ab6d-005056801329">Винницкая</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaad3d6-4b33-11e4-ab6d-005056801329">АРК</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaad676-4b33-11e4-ab6d-005056801329">Волынская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaad735-4b33-11e4-ab6d-005056801329">Днепропетровская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaad81c-4b33-11e4-ab6d-005056801329">Донецкая</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaad8fb-4b33-11e4-ab6d-005056801329">Житомирская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaad993-4b33-11e4-ab6d-005056801329">Закарпатская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaada26-4b33-11e4-ab6d-005056801329">Запорожская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaadac6-4b33-11e4-ab6d-005056801329">Ивано-Франковская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaadb64-4b33-11e4-ab6d-005056801329">Киевская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaadbf9-4b33-11e4-ab6d-005056801329">Кировоградская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaadc91-4b33-11e4-ab6d-005056801329">Луганская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaadc91-4b33-11e4-ab6d-005056801329">Львовская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaaddd7-4b33-11e4-ab6d-005056801329">Николаевская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaade6d-4b33-11e4-ab6d-005056801329">Одесская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaadf02-4b33-11e4-ab6d-005056801329">Полтавская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaadfa0-4b33-11e4-ab6d-005056801329">Ровненская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae036-4b33-11e4-ab6d-005056801329">Сумская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae303-4b33-11e4-ab6d-005056801329">Тернопольская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae3a1-4b33-11e4-ab6d-005056801329">Харьковская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae44b-4b33-11e4-ab6d-005056801329">Херсонская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae4e5-4b33-11e4-ab6d-005056801329">Хмельницкая</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae57c-4b33-11e4-ab6d-005056801329">Черкасская</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae60e-4b33-11e4-ab6d-005056801329">Черновицкая</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="uk" data-ref="dcaae6a8-4b33-11e4-ab6d-005056801329">Черниговская</a>');
-            } else {
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="">Виберіть область</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaad3d6-4b33-11e4-ab6d-005056801329">АРК</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaad5a7-4b33-11e4-ab6d-005056801329">Вінницька</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaad676-4b33-11e4-ab6d-005056801329">Волинська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaad735-4b33-11e4-ab6d-005056801329">Дніпропетровська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaad81c-4b33-11e4-ab6d-005056801329">Донецька</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaad8fb-4b33-11e4-ab6d-005056801329">Житомирська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaad993-4b33-11e4-ab6d-005056801329">Закарпатська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaada26-4b33-11e4-ab6d-005056801329">Запорізька</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaadac6-4b33-11e4-ab6d-005056801329">Івано-Франківська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaadb64-4b33-11e4-ab6d-005056801329">Київська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaadbf9-4b33-11e4-ab6d-005056801329">Кіровоградська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaadc91-4b33-11e4-ab6d-005056801329">Луганська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaadd3a-4b33-11e4-ab6d-005056801329">Львівська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaaddd7-4b33-11e4-ab6d-005056801329">Миколаївська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaade6d-4b33-11e4-ab6d-005056801329">Одеська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaadf02-4b33-11e4-ab6d-005056801329">Полтавська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaadfa0-4b33-11e4-ab6d-005056801329">Рівненська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae036-4b33-11e4-ab6d-005056801329">Сумська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae303-4b33-11e4-ab6d-005056801329">Тернопільська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae3a1-4b33-11e4-ab6d-005056801329">Харківська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae44b-4b33-11e4-ab6d-005056801329">Херсонська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae4e5-4b33-11e4-ab6d-005056801329">Хмельницька</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae57c-4b33-11e4-ab6d-005056801329">Черкаська</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae60e-4b33-11e4-ab6d-005056801329">Чернівецька</a>');
-                $districtSelectorContainer.append('<a data-value="" data-lang="ru" data-ref="dcaae6a8-4b33-11e4-ab6d-005056801329">Чернігівська</a>');
-            }
+                if(currentLang === 'uk'){
+                    ukA.hide();
+                } else {
+                    ruA.hide();
+                }
+
+                $districtSelectorContainer.append(ukA);
+                $districtSelectorContainer.append(ruA);
+            });
 
             $districtSelectorContainer.find('a').off().on('click', function() {
                 selectedDistrictRef = this.dataset.ref;
@@ -339,13 +422,22 @@
 
                         $citySelectorContainer.empty();
                         response.data.forEach(function (city) {
-                            $citySelectorContainer.append('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
-                            $citySelectorContainer.append('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.DescriptionRu + '</a>');
-                            $citySelectorContainer.find('a').off().on('click', function() {
-                                selectedCityRef = this.dataset.ref;
-                                $citySelect.val(this.text).change();
-                            });
+                            var ukA = $('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
+                            var ruA = $('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.DescriptionRu + '</a>');
 
+                            if(currentLang === 'uk'){
+                                ukA.hide();
+                            } else {
+                                ruA.hide();
+                            }
+
+                            $citySelectorContainer.append(ukA);
+                            $citySelectorContainer.append(ruA);
+                        });
+
+                        $citySelectorContainer.find('a').off().on('click', function() {
+                            selectedCityRef = this.dataset.ref;
+                            $citySelect.val(this.text).change();
                         });
                     }
                 }
@@ -486,16 +578,16 @@
         $districtSelect.keyup(function () {
             var filter = $districtSelect.val().toUpperCase();
 
-            for (i = 0; i < $districtSelectorContainer.find('a').length; i++) {
-                // var district = $districtSelectorContainer;
-                // var ruName = district.text;
-                // var ukName = district.Description;
-                //
-                // if (ruName.toUpperCase().indexOf(filter) > -1 || ukName.toUpperCase().indexOf(filter) > -1) {
-                //     $districtSelectorContainer.find('[data-ref=' + district.Ref + '][data-lang=' + currentLang + ']').show();
-                // } else {
-                //     $districtSelectorContainer.find('[data-ref=' + district.Ref + ']').hide();
-                // }
+            for (i = 0; i < districts.length; i++) {
+                var district = districts[i];
+                var ruName = district.DescriptionRu;
+                var ukName = district.Description;
+
+                if (ruName.toUpperCase().indexOf(filter) > -1 || ukName.toUpperCase().indexOf(filter) > -1) {
+                    $districtSelectorContainer.find('[data-ref=' + district.Ref + '][data-lang=' + currentLang + ']').show();
+                } else {
+                    $districtSelectorContainer.find('[data-ref=' + district.Ref + ']').hide();
+                }
             }
         });
 
