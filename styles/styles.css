@@ -8,6 +8,10 @@ html {
   font-family: "Museo Sans Cyrl", sans-serif;
 }
 
+.selector-container {
+  z-index: 2;
+}
+
 svg {
   z-index: 1;
 }
@@ -444,10 +448,14 @@ svg {
 
 .tbody__text {
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
+}
+
+.weight {
+  padding-left: 45%;
 }
 
 .table__body {
