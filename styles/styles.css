@@ -500,7 +500,7 @@ svg {
   background-color: #fff;
   /*overflow: hidden;*/
   z-index: 1;
-  /*overflow: ;*/
+  padding-left: 30px;
 }
 
 .city-selector-container a {
