@@ -78,14 +78,13 @@
         </section>
 
         <div class="expanded-search">
-          <section class="expanded-search__buttons">
+          <section class="expanded-search__buttons" data-toggle="collapse" data-target="#collapse-content" aria-expanded="false" aria-controls="collapse-content">
             <div>
-              <span class="activate">Розширений пошук</span>
-              <div class="btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <span id="collapsable-section-title" class="activate">Розширений пошук</span>
+              <div class="btn">
                 <label class="switch">
-                  <input class="toggle" type="checkbox">
+                  <input id="collapsable-section-shevron" class="toggle" type="checkbox">
                   <span class="slider"></span>
-                  <span class="active">Закрити розширений пошук</span>
                 </label>
               </div>
             </div>
@@ -99,7 +98,7 @@
             </div>
           </section>
 
-          <div class="collapse" id="collapseExample">
+          <div class="collapse" id="collapse-content">
             <div class="search__form_2">
               <span class="text">Показати тільки:</span>
 
@@ -153,7 +152,7 @@
         var $warehouseTypeSelect = $('#warehouse-type-selector');
         var $isWorkingOnSundayCheckbox = $('#is-work-on-sunday');
         var $isSelfServingCheckbox = $('#is-self-serve');
-        var $clearBtn = $('#n_clear-btn');
+        var $clearBtn = $('#clear-btn');
 
         var districts = [
             {
@@ -525,6 +524,15 @@
             });
         }
 
+        function clearFilterInputs() {
+            $districtSelect.val("").change();
+            $citySelect.val("").change();
+            $warehouseSelect.val("").change();
+            $warehouseTypeSelect.val("").change();
+            $isWorkingOnSundayCheckbox.prop('checked', false);
+            $isSelfServingCheckbox.prop('checked', false);
+        }
+
         $districtSelect.change(function () {
             getSettlements(selectedDistrictRef, 1, 10000000);
         });
@@ -614,14 +622,19 @@
 
         getSettlementAreas();
 
-        // function clearFilterInputs() {
-        //     $districtSelect.val("").change();
-        //     $citySelect.val("").change();
-        //     $warehouseSelect.val("").change();
-        //     $warehouseTypeSelect.val("").change();
-        //     $isWorkingOnSundayCheckbox.prop('checked', false);
-        //     $isSelfServingCheckbox.prop('checked', false);
-        // }
+        $('#collapse-content').on('show.bs.collapse', function () {
+            $('#collapsable-section-title').text('Закрити розширений пошук');
+            $('#collapsable-section-shevron').prop('checked', true);
+        });
+
+        $('#collapse-content').on('hide.bs.collapse', function () {
+            $('#collapsable-section-title').text('Розширений пошук');
+            $('#collapsable-section-shevron').prop('checked', false);
+        });
+
+        $clearBtn.click(function () {
+            clearFilterInputs();
+        });
 
         // function getNearestWarehouses(filter) {
         //     if(navigator.geolocation) {
@@ -652,11 +665,6 @@
         // }
 
         // $findWarehouseBtn.click(function () {
-        //     getNearestWarehouses(getFilter());
-        // });
-
-        // $clearBtn.click(function () {
-        //     clearFilterInputs();
         //     getNearestWarehouses(getFilter());
         // });
 
