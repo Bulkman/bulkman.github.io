@@ -50,7 +50,7 @@
             </svg>
 
               <input id="city-selector" class="search__select">
-              <div id="city-selector-container" class="city-selector-container">
+              <div id="city-selector-container" class="city-selector-container" style="display: none;">
 
               </div>
           </div>
@@ -514,6 +514,14 @@
                     $citySelectorContainer.find('[data-ref=' + city.Ref + ']').hide();
                 }
             }
+        });
+
+        $citySelect.focusin(function() {
+            $citySelectorContainer.show();
+        });
+
+        $citySelect.focusout(function() {
+            $citySelectorContainer.hide();
         });
 
         $findWarehouseBtn.click(function () {
