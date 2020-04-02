@@ -498,8 +498,8 @@
                     $warehouseTable.append('<section class="table__body tbody">\n' +
                         '      <span class="tbody__text time">\n' +
                         '        <div class="dropdown">\n' +
-                        '   </div>\n' +
-                        '          Пн: 08:00-22:00\n' +
+                        '   </div>Пн: \n' +
+                              warehouse.Schedule.Monday +
                         '          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
                         '          <label class="switch">\n' +
                         '             <input class="toggle" type="checkbox">\n' +
@@ -507,13 +507,13 @@
                         '           </label>\n' +
                         '         </button>\n' +
                         '       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
-                        '          <span>Пн: 08:00-21:00</span>\n' +
-                        '          <span>Вт: 08:00-21:00</span>\n' +
-                        '          <span>Cр: 08:00-21:00</span>\n' +
-                        '          <span>Чт: 08:00-21:00</span>\n' +
-                        '          <span>Пт: 08:00-21:00</span>\n' +
-                        '          <span>Сб: 09:00-21:00</span>\n' +
-                        '          <span>Нд: 11:00-21:00</span>\n' +
+                        '          <span>Пн: ' + warehouse.Schedule.Monday + '</span>\n' +
+                        '          <span>Вт: ' + warehouse.Schedule.Tuesday + '</span>\n' +
+                        '          <span>Ср: ' + warehouse.Schedule.Wednesday + '</span>\n' +
+                        '          <span>Чт: ' + warehouse.Schedule.Thursday + '</span>\n' +
+                        '          <span>Пт: ' + warehouse.Schedule.Friday + '</span>\n' +
+                        '          <span>Сб: ' + warehouse.Schedule.Saturday + '</span>\n' +
+                        '          <span>Нд: ' + warehouse.Schedule.Sunday + '</span>\n' +
                         '          <span>Показати на мапі</span>\n' +
                         '      </div>\n' +
                         '      </span>\n' +
