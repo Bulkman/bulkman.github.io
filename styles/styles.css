@@ -14,6 +14,7 @@ svg {
 
 .o_search {
   margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .o_search .n_main {
@@ -159,6 +160,7 @@ svg {
 
 #warehouse-type-selector {
    background-position-x: 252px;
+  padding-left: 10px;
  }
 
 .o_search .n_checkbox__wrapper {
@@ -293,6 +295,21 @@ svg {
 
 .toggle:checked + .slider:before {
   background: url("../images/arrow-up.svg");
+}
+
+.active {
+  position: absolute;
+  width: 200px;
+  right: -51px;
+  top: 2px;
+  height: 20px;
+  background-color: #f2f2f2;
+}
+
+body > div > main > section > form > div > section > div:nth-child(1) > div > label > span.active
+
+.toggle ~ .active {
+  display: none;
 }
 
   @media screen and (max-width: 1032px) {
