@@ -310,6 +310,7 @@ svg {
 
     .o_search .select-container {
       margin: 0;
+      position: relative;
     }
 
     .o_search .n_form {
@@ -488,4 +489,11 @@ svg {
 
 .table__dropdown span {
   margin-bottom: 7px;
+}
+
+.city-selector-container {
+  height: 400px;
+  position: absolute;
+  width: 250px;
+  top: 40px;
 }
