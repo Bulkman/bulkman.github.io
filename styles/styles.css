@@ -464,12 +464,11 @@ svg {
 
 .time .toggle:checked + .slider:before {
   background: url("../images/time_toggle_up.svg");
-  z-index: 1;
 }
 
 .time .btn {
   padding: 0!important;
-  margin-right: 10px;
+  margin-right: 15px;
   z-index: 1;
 }
 
@@ -517,16 +516,28 @@ svg {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
-  box-shadow: 0px 1px 6px rgba(132, 132, 132, 0.25);
+  box-shadow: 0 1px 6px rgba(132, 132, 132, 0.25);
   border-radius: 4px;
   box-sizing: border-box;
-  padding: 8px 10px 30px 10px;
+  padding: 8px 0 30px 0;
   font-size: 11px;
   line-height: 13px;
   text-align: center;
   color: #7D7D7D;
   transform: none !important;
   top: -130px!important;
-  left: 25px!important;
+  left: 75px!important;
 }
+
+.dropdown-menu {
+  z-index: 0!important;
+  min-width: auto!important;
+  width: 110px;
+}
+
+.btn.focus, .btn:focus {
+  outline: none !important;
+  box-shadow: none!important;
+}
+
 
