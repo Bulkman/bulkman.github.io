@@ -400,6 +400,18 @@
             return 'Отделение №' + warehouse.Number;
         }
 
+      function getWarehouseShortName(warehouse) {
+        if(warehouse.CategoryOfWarehouse === categoryWarehouse) {
+          return 'Отд №' + warehouse.Number;
+        } else if(warehouse.CategoryOfWarehouse === categoryPostmap) {
+          return 'П-т №' + warehouse.Number;
+        } else if(warehouse.CategoryOfWarehouse === categoryOffice) {
+          return 'Пункт «Нова Пошта» №' + warehouse.Number;
+        }
+
+        return 'Отд №' + warehouse.Number;
+      }
+
         function getWarehouses(cityRef, page, limit) {
             $.ajax({
                 type: 'POST',
@@ -484,7 +496,7 @@
                     $warehouseTable.append('      ' +
                           '<section class="table__body tbody">\n' +
                           '<span class="tbody__text dep">\n'
-                          + getWarehouseName(warehouse) +
+                          + getWarehouseShortName(warehouse) +
                           '</span>\n' +
                           '</section>');
 
