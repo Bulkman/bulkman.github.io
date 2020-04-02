@@ -133,10 +133,9 @@
 </div>
 
 <section class="table">
-    <secrion class="table__container">
+    <secrion class="table__container" id="table__container">
         <section class="table__head">
-    <span class="table__text dep">Відділення/<br>Почтомат
-</span>
+           <span class="table__text dep">Відділення/<br>Почтомат</span>
         </section>
 
         <section class="table__head">
@@ -331,6 +330,7 @@
         var categoryWarehouse = 'Branch';
         var categoryPostmap = 'Postomat';
         var categoryOffice = 'Office';
+        var $warehouseTable = $('#table__container');
 
         var districts = [
             {
@@ -580,12 +580,74 @@
                 dataType: 'json',
                 success: function (response) {
                     $warehouseSelect.empty();
+                    $warehouseTable.empty();
                     $warehouseSelect.append('<option value=""selected>Всі відділення</option>');
+
+                    $warehouseTable.append(
+                        '<section class="table__head">\n' +
+                        '<span class="table__text dep">Відділення/<br>Почтомат</span>\n' +
+                        '</section>'
+                    );
+                    $warehouseTable.append('' +
+                        '<section class="table__head">\n' +
+                        '<span class="table__text">Адреса</span>\n' +
+                        '</section>');
+
+                    $warehouseTable.append('' +
+                        '<section class="table__head">\n' +
+                        '<span class="table__text">Графік роботи</span>\n' +
+                        '</section>');
+
+                    $warehouseTable.append('' +
+                        '<section class="table__head">\n' +
+                        '<span class="table__text">Вага до</span>\n' +
+                        '</section>');
 
                     if (response.success) {
                         warehousesList = response.data;
                         warehousesList.forEach(function (warehouse) {
                             $warehouseSelect.append('<option value="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</option>');
+
+                            $warehouseTable.append('      ' +
+                                '<section class="table__body tbody">\n' +
+                                '<span class="tbody__text dep">\n'
+                                 + getWarehouseName(warehouse) +
+                                '</span>\n' +
+                                '</section>');
+
+                            $warehouseTable.append('      ' +
+                                '<section class="table__body tbody">\n' +
+                                '<span class="tbody__text">\n'
+                                + warehouse.ShortAddress +
+                                '</span>\n' +
+                                '</section>');
+
+                            $warehouseTable.append('<section class="table__body tbody">\n' +
+                                '      <span class="tbody__text time">\n' +
+                                '        <div class="dropdown">\n' +
+                                '   </div>\n' +
+                                '          Пн: 08:00-22:00\n' +
+                                '          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
+                                '          <label class="switch">\n' +
+                                '             <input class="toggle" type="checkbox">\n' +
+                                '             <span class="slider"></span>\n' +
+                                '           </label>\n' +
+                                '         </button>\n' +
+                                '       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
+                                '          <span>Пн: 08:00-21:00</span>\n' +
+                                '          <span>Вт: 08:00-21:00</span>\n' +
+                                '          <span>Cр: 08:00-21:00</span>\n' +
+                                '          <span>Чт: 08:00-21:00</span>\n' +
+                                '          <span>Пт: 08:00-21:00</span>\n' +
+                                '          <span>Сб: 09:00-21:00</span>\n' +
+                                '          <span>Нд: 11:00-21:00</span>\n' +
+                                '          <span>Показати на мапі</span>\n' +
+                                '      </div>\n' +
+                                '      </span>\n' +
+                                '        </section>');
+
+                            $warehouseTable.append('<section class="table__body tbody">\n' +
+                                '<span class="tbody__text">' + warehouse.TotalMaxWeightAllowed + ' кг</span></section>');
                         });
 
                         $warehouseSelect.val(response.data[0] ? response.data[0].Ref : '').change();
