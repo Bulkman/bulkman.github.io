@@ -500,7 +500,13 @@ svg {
   background-color: #fff;
   /*overflow: hidden;*/
   z-index: 1;
+  /*overflow: ;*/
 }
+
+.city-selector-container a {
+  display: block;
+}
+
 
 .dropdown-menu.show {
   display: flex;
