@@ -504,10 +504,12 @@ svg {
   box-sizing: border-box;
   border: 1px solid #D3D3D3;
   border-top: none;
+  overflow-y: scroll;
 }
 
 .city-selector-container a {
   display: block;
+  cursor: pointer;
 }
 
 
