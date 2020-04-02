@@ -88,7 +88,7 @@
                 <label class="switch">
                   <input class="toggle" type="checkbox">
                   <span class="slider"></span>
-                  <span class="active">Закрити розширений пошук</span>
+                  <span class="active" id="active">Закрити розширений пошук</span>
                 </label>
               </div>
             </div>
@@ -624,12 +624,14 @@
 
         // getNearestWarehouses(getFilter());
     });
-</script>
 
-<script>
-    document.querySelector('.active').onclick = function() {
-        document.querySelector('.active').style.display = (document.querySelector('.active').style.display === 'none') ? '' : 'hidden'
-    }
+    $('#collapse-content').on('show.bs.collapse', function () {
+        $('collapsable-section-title').text('Розширений пошук');
+    });
+
+    $('#collapse-content').on('show.bs.collapse', function () {
+        $('collapsable-section-title').text('Закрити розширений пошук');
+    });
 </script>
 </body>
 </html>

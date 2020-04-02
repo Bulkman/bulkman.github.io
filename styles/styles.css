@@ -304,6 +304,7 @@ svg {
   top: 2px;
   height: 20px;
   background-color: #f2f2f2;
+  /*display: none;*/
 }
 
   @media screen and (max-width: 1032px) {
