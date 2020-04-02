@@ -60,13 +60,10 @@
                     fill="black" fill-opacity="0.54"/>
             </svg>
 
-            <select id="warehouse-selector" class="search__select">
-              <option value="" disabled selected>Всі відділення</option>
-              <option value="1">Всі відділення</option>
-              <option value="2">Всі відділення</option>
-              <option value="3">Всі відділення</option>
-              <option value="4">Всі відділення</option>
-            </select>
+              <input id="warehouse-selector" class="search__select" autocomplete="off">
+              <div id="warehouse-selector-container" class="selector-container" style="display: none;">
+
+              </div>
           </div>
 
           <div class="buttons">
@@ -145,29 +142,18 @@
     $(function () {
         // Init section
         var $findWarehouseBtn = $('#find-warehouse-btn');
+
         var $districtSelect = $('#district-selector');
         var $districtSelectorContainer = $('#district-selector-container');
         var $citySelect = $('#city-selector');
         var $citySelectorContainer = $('#city-selector-container');
         var $warehouseSelect = $('#warehouse-selector');
+        var $warehouseSelectorContainer = $('#warehouse-selector-container');
+
         var $warehouseTypeSelect = $('#warehouse-type-selector');
         var $isWorkingOnSundayCheckbox = $('#is-work-on-sunday');
         var $isSelfServingCheckbox = $('#is-self-serve');
         var $clearBtn = $('#n_clear-btn');
-        var warehousesList = [];
-        var citiesList = [];
-        var currentLang = 'uk';//new URLSearchParams(location.href).get('lang');
-        var selectedCityRef = '';
-        var selectedDistrictRef = '';
-
-        var typeWarehouse = '9a68df70-0267-42a8-bb5c-37f427e36ee4';
-        var typePostmap = 'f9316480-5f2d-425d-bc2c-ac7cd29decf0';
-        var typeOffice = '841339c7-591a-42e2-8233-7a0a00f0ed6f';
-
-        var categoryWarehouse = 'Branch';
-        var categoryPostmap = 'Postomat';
-        var categoryOffice = 'Office';
-        var $warehouseTable = $('#table__container');
 
         var districts = [
             {
@@ -296,6 +282,22 @@
                 DescriptionRu: 'Черниговская'
             },
         ];
+        var warehousesList = [];
+        var citiesList = [];
+
+        var currentLang = 'uk';//new URLSearchParams(location.href).get('lang');
+        var selectedCityRef = '';
+        var selectedDistrictRef = '';
+        var selectedWarehouseRef = '';
+
+        var typeWarehouse = '9a68df70-0267-42a8-bb5c-37f427e36ee4';
+        var typePostmap = 'f9316480-5f2d-425d-bc2c-ac7cd29decf0';
+        var typeOffice = '841339c7-591a-42e2-8233-7a0a00f0ed6f';
+
+        var categoryWarehouse = 'Branch';
+        var categoryPostmap = 'Postomat';
+        var categoryOffice = 'Office';
+        var $warehouseTable = $('#table__container');
 
         function getSettlementAreas() {
             $districtSelectorContainer.empty();
@@ -416,9 +418,8 @@
                 }),
                 dataType: 'json',
                 success: function (response) {
-                    $warehouseSelect.empty();
+                    $warehouseSelectorContainer.empty();
                     $warehouseTable.empty();
-                    $warehouseSelect.append('<option value=""selected>Всі відділення</option>');
 
                     $warehouseTable.append(
                         '<section class="table__head">\n' +
@@ -443,8 +444,6 @@
                     if (response.success) {
                         warehousesList = response.data;
                         warehousesList.forEach(function (warehouse) {
-                            $warehouseSelect.append('<option value="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</option>');
-
                             $warehouseTable.append('      ' +
                                 '<section class="table__body tbody">\n' +
                                 '<span class="tbody__text dep">\n'
@@ -485,9 +484,24 @@
 
                             $warehouseTable.append('<section class="table__body tbody">\n' +
                                 '<span class="tbody__text">' + warehouse.TotalMaxWeightAllowed + ' кг</span></section>');
+
+                            var ukA = $('<a data-value="' + warehouse.Description + '" data-lang="uk" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
+                            var ruA = $('<a data-value="' + warehouse.DescriptionRu + '" data-lang="ru" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
+
+                            if(currentLang === 'uk'){
+                                ukA.hide();
+                            } else {
+                                ruA.hide();
+                            }
+
+                            $warehouseSelectorContainer.append(ukA);
+                            $warehouseSelectorContainer.append(ruA);
                         });
 
-                        $warehouseSelect.val(response.data[0] ? response.data[0].Ref : '').change();
+                        $warehouseSelectorContainer.find('a').off().on('click', function() {
+                            selectedWarehouseRef = this.dataset.ref;
+                            $warehouseSelect.val(this.text).change();
+                        });
                     }
                 }
             });
@@ -551,6 +565,22 @@
             }
         });
 
+        $warehouseSelect.keyup(function () {
+            var filter = $warehouseSelect.val().toUpperCase();
+
+            for (i = 0; i < warehousesList.length; i++) {
+                var wh = warehousesList[i];
+                var ruName = wh.DescriptionRu;
+                var ukName = wh.Description;
+
+                if (ruName.toUpperCase().indexOf(filter) > -1 || ukName.toUpperCase().indexOf(filter) > -1) {
+                    $warehouseSelectorContainer.find('[data-ref=' + wh.Ref + '][data-lang=' + currentLang + ']').show();
+                } else {
+                    $warehouseSelectorContainer.find('[data-ref=' + wh.Ref + ']').hide();
+                }
+            }
+        });
+
         $districtSelect.focusin(function() {
             $districtSelectorContainer.show();
         });
@@ -568,6 +598,14 @@
 
         $citySelect.focusout(function() {
             setTimeout(function() { $citySelectorContainer.hide(); }, 350);
+        });
+
+        $warehouseSelect.focusin(function() {
+            $warehouseSelectorContainer.show();
+        });
+
+        $warehouseSelect.focusout(function() {
+            setTimeout(function() { $warehouseSelectorContainer.hide(); }, 350);
         });
 
         $findWarehouseBtn.click(function () {
