@@ -605,6 +605,10 @@ svg {
 }
 
 @media screen and (max-width: 1032px) {
+    .table__container {
+        grid-template-columns: 1fr 2fr repeat(2, 1fr);
+    }
+
     .dropdown-menu.show {
         left: calc(50% - 54px) !important;
     }
@@ -617,3 +621,11 @@ svg {
         width: 100vw;
     }
 }
+
+@media screen and (max-width: 585px) {
+    .day {
+        display: none;
+    }
+}
+
+
