@@ -67,10 +67,12 @@
                     </div>
 
                     <div class="buttons">
-                        <a id="find-warehouse-btn" class="n_button" href="#" data-locale="find">
+                        <a id="find-warehouse-btn" class="n_button" href="#">
+                            Шукати
                         </a>
 
-                        <a class="n_button" href="#" data-locale="show_on_map">
+                        <a class="n_button" href="#">
+                            Показати на мапі
                         </a>
                     </div>
                 </section>
@@ -79,21 +81,20 @@
                     <section class="expanded-search__buttons">
                         <div data-toggle="collapse" data-target="#collapse-content" aria-expanded="false"
                              aria-controls="collapse-content">
-                            <span id="collapsable-section-title" class="activate" data-locale="advanced_search"></span>
+                            <span id="collapsable-section-title" class="activate">
+                                Розширений пошук
+                            </span>
                             <span id="collapsable-section-img">
-                                <img src="./images/arrow-down.svg" alt="">
+                                <img src="../images/arrow-down.svg" alt="">
                             </span>
 
                             <div class="btn">
-<!--                                <label class="switch">-->
-<!--                                    <input id="collapsable-section-shevron" class="toggle" type="checkbox">-->
-<!--                                    <span class="slider"></span>-->
-<!--                                </label>-->
+
                             </div>
                         </div>
 
                         <div id="clear-btn">
-                            <span data-locale="clear_all"></span>
+                            <span>Очистити все</span>
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.72125 1.33625C10.0133 1.04423 10.0133 0.57077 9.72125 0.27875C9.42923 -0.0132705 8.95577 -0.0132706 8.66375 0.27875L5 3.9425L1.33625 0.27875C1.04423 -0.013271 0.57077 -0.0132705 0.27875 0.27875C-0.0132705 0.57077 -0.0132706 1.04423 0.27875 1.33625L3.9425 5L0.27875 8.66375C-0.013271 8.95577 -0.0132705 9.42923 0.27875 9.72125C0.57077 10.0133 1.04423 10.0133 1.33625 9.72125L5 6.0575L8.66375 9.72125C8.95577 10.0133 9.42923 10.0133 9.72125 9.72125C10.0133 9.42923 10.0133 8.95577 9.72125 8.66375L6.0575 5L9.72125 1.33625Z"
@@ -104,25 +105,25 @@
 
                     <div class="collapse" id="collapse-content">
                         <div class="search__form_2">
-                            <span class="text" data-locale="show_only"></span>
+                            <span class="text">Показати тільки:</span>
 
                             <div class="select-container select">
 
                                 <select id="warehouse-type-selector" class="search__select .select_280">
-                                    <option value="" selected data-locale="all_wh_types"></option>
-                                    <option value="Branch" data-locale="warehouses" ></option>
-                                    <option value="Postomat" data-locale="postomats"></option>
-                                    <option value="Office" data-locale="office"></option>
+                                    <option value="" selected>Всі типи відділень</option>
+                                    <option value="Branch">Відділення</option>
+                                    <option value="Postomat">Поштомати</option>
+                                    <option value="Office">Пункт «Нова Пошта»</option>
                                 </select>
                             </div>
 
 
                             <input class="n_checkbox" type="checkbox" id="is-work-on-sunday" name="workInSunday"
                                    value="">
-                            <label for="is-work-on-sunday" class="n_label" data-locale="sunday_work"></label>
+                            <label for="is-work-on-sunday" class="n_label">Працює в неділю</label>
 
                             <input class="n_checkbox" type="checkbox" id="is-self-serve" name="self" value="">
-                            <label for="is-self-serve" class="n_label" data-locale="self_service"></label>
+                            <label for="is-self-serve" class="n_label">Самообслуговування</label>
 
                         </div>
                     </div>
@@ -135,6 +136,21 @@
 
 <section class="table">
     <section class="table__container" id="table__container">
+        <section class="table__head">
+            <span class="table__text first-line">Відділення/<br>Почтомат</span>
+        </section>
+
+        <section class="table__head">
+            <span class="table__text">Адреса</span>
+        </section>
+
+        <section class="table__head d-none d-md-block d-lg-block d-xl-block">
+            <span class="table__text">Графік роботи</span>
+        </section>
+
+        <section class="table__head d-none d-md-block d-lg-block d-xl-block">
+            <span class="table__text">Вага до</span>
+        </section>
     </section>
 </section>
 
@@ -156,10 +172,6 @@
         var $isSelfServingCheckbox = $('#is-self-serve');
         var $clearBtn = $('#clear-btn');
         var $warehouseTable = $('#table__container');
-
-        var $collapseContent = $('#collapse-content');
-        var $collapseSectionTitle = $('#collapsable-section-title');
-        var $collapseSectionShevron =  $('#collapsable-section-shevron');
 
         var districts = [
             {
@@ -291,7 +303,7 @@
         var warehousesList = [];
         var citiesList = [];
 
-        var currentLang = new URLSearchParams(window.location.search).get('lang') || 'ua';
+        var currentLang = new URLSearchParams(location.href).get('lang') || 'uk';
         var selectedCityRef = '';
         var selectedDistrictRef = '';
         var selectedWarehouseRef = '';
@@ -307,8 +319,17 @@
         function getSettlementAreas() {
             $districtSelectorContainer.empty();
             districts.forEach(function (district) {
-                var link = $('<a data-ref="' + district.Ref + '">' + getDescription(currentLang, district) + '</a>');
-                $districtSelectorContainer.append(link);
+                var ukA = $('<a data-value="' + district.Description + '" data-lang="uk" data-ref="' + district.Ref + '">' + district.Description + '</a>');
+                var ruA = $('<a data-value="' + district.DescriptionRu + '" data-lang="ru" data-ref="' + district.Ref + '">' + district.DescriptionRu + '</a>');
+
+                if (currentLang === 'uk') {
+                    ukA.hide();
+                } else {
+                    ruA.hide();
+                }
+
+                $districtSelectorContainer.append(ukA);
+                $districtSelectorContainer.append(ruA);
             });
 
             $districtSelectorContainer.find('a').off().on('click', function () {
@@ -339,46 +360,50 @@
 
                         $citySelectorContainer.empty();
                         response.data.forEach(function (city) {
-                            var link = $('<a data-ref="' + city.Ref + '">' + getDescription(currentLang, city) + '</a>');
-                            $citySelectorContainer.append(link);
+                            var ukA = $('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
+                            var ruA = $('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.DescriptionRu + '</a>');
+
+                            if (currentLang === 'uk') {
+                                ukA.hide();
+                            } else {
+                                ruA.hide();
+                            }
+
+                            $citySelectorContainer.append(ukA);
+                            $citySelectorContainer.append(ruA);
                         });
 
                         $citySelectorContainer.find('a').off().on('click', function () {
                             selectedCityRef = this.dataset.ref;
                             $citySelect.val(this.text).change();
                         });
-                    } else {
-                        $citySelectorContainer.empty();
                     }
-                },
-                error: function() {
-                    $citySelectorContainer.empty();
                 }
             });
         }
 
         function getWarehouseName(warehouse) {
             if (warehouse.CategoryOfWarehouse === categoryWarehouse) {
-                return getString(currentLang, 'warehouse') + ' №' + warehouse.Number;
+                return 'Отделение №' + warehouse.Number;
             } else if (warehouse.CategoryOfWarehouse === categoryPostmap) {
-                return getString(currentLang, 'postomat') + ' №' + warehouse.Number;
+                return 'Почтомат №' + warehouse.Number;
             } else if (warehouse.CategoryOfWarehouse === categoryOffice) {
-                return getString(currentLang, 'office') + ' №' + warehouse.Number;
+                return 'Пункт «Нова Пошта» №' + warehouse.Number;
             }
 
-            return getString(currentLang, 'warehouse') + ' №' + warehouse.Number;
+            return 'Отделение №' + warehouse.Number;
         }
 
         function getWarehouseShortName(warehouse) {
             if (warehouse.CategoryOfWarehouse === categoryWarehouse) {
-                return getString(currentLang, 'warehouse_short') + ' №' + warehouse.Number;
+                return 'Отд №' + warehouse.Number;
             } else if (warehouse.CategoryOfWarehouse === categoryPostmap) {
-                return getString(currentLang, 'postomat_short') + ' №' + warehouse.Number;
+                return 'П-т №' + warehouse.Number;
             } else if (warehouse.CategoryOfWarehouse === categoryOffice) {
-                return getString(currentLang, 'office') + ' №' + warehouse.Number;
+                return 'Пункт «Нова Пошта» №' + warehouse.Number;
             }
 
-            return getString(currentLang, 'warehouse_short') + ' №' + warehouse.Number;
+            return 'Отд №' + warehouse.Number;
         }
 
         function getWarehouses(cityRef, page, limit) {
@@ -402,20 +427,24 @@
                     if (response.success) {
                         warehousesList = response.data;
                         warehousesList.forEach(function (warehouse) {
-                            var link = $('<a data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
-                            $warehouseSelectorContainer.append(link);
+                            var ukA = $('<a data-value="' + warehouse.Description + '" data-lang="uk" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
+                            var ruA = $('<a data-value="' + warehouse.DescriptionRu + '" data-lang="ru" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
+
+                            if (currentLang === 'uk') {
+                                ukA.hide();
+                            } else {
+                                ruA.hide();
+                            }
+
+                            $warehouseSelectorContainer.append(ukA);
+                            $warehouseSelectorContainer.append(ruA);
                         });
 
                         $warehouseSelectorContainer.find('a').off().on('click', function () {
                             selectedWarehouseRef = this.dataset.ref;
                             $warehouseSelect.val(this.text).change();
                         });
-                    } else {
-                        $warehouseSelectorContainer.empty();
                     }
-                },
-                error: function() {
-                    $warehouseSelectorContainer.empty();
                 }
             });
         }
@@ -430,76 +459,73 @@
             };
         }
 
-        function createTableHeader() {
-            return '' +
-                '<section class="table__head">\n' +
-                    '<span class="table__text first-line">' + getString(currentLang, 'warehouse') + '/<br>' + getString(currentLang, 'postomat') + '</span>\n' +
-                '</section>\n' +
-                '<section class="table__head">\n' +
-                    '<span class="table__text">' + getString(currentLang, 'address') + '</span>\n' +
-                '</section>\n' +
-                '<section class="table__head d-none d-md-block d-lg-block d-xl-block">\n' +
-                    '<span class="table__text">' + getString(currentLang, 'schedule') + '</span>\n' +
-                '</section>\n' +
-                '<section class="table__head d-none d-md-block d-lg-block d-xl-block">\n' +
-                    '<span class="table__text">' + getString(currentLang, 'weight_up_to') + '</span>\n' +
-                '</section>\n';
-        }
-
-        function getDescription(lang, src) {
-            if(lang === 'ru') {
-                return src.DescriptionRu;
-            } else if(lang === 'ua') {
-                return src.Description;
-            }
-
-            return src.Description;
-        }
-
-        function createTableRow(warehouse) {
-            return '' +
-                '<section class="table__body tbody">\n' +
-                    '<span class="tbody__text dep line">' + getWarehouseShortName(warehouse) + '</span>\n' +
-                '</section>\n' +
-                '<section class="table__body tbody">\n' +
-                    '<span class="tbody__text">' + getDescription(currentLang, warehouse).split(':').slice(1).join('') + '</span>\n' +
-                '</section>\n' +
-                '<section class="table__body tbody d-none d-md-block d-lg-block d-xl-block">\n' +
-                    '<span class="tbody__text time">\n' +
-                        '<span class="day">Пн: ' + warehouse.Schedule.Monday + '</span>\n' +
-                        '<button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
-                            '<label class="switch">\n' +
-                                '<input class="toggle" type="checkbox" id="collapsable-section-shevron-time">\n' +
-                                '<span class="slider"></span>\n' +
-                            '</label>\n' +
-                        '</button>\n' +
-                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
-                            '<span>Пн: ' + warehouse.Schedule.Monday + '</span>\n' +
-                            '<span>Вт: ' + warehouse.Schedule.Tuesday + '</span>\n' +
-                            '<span>Ср: ' + warehouse.Schedule.Wednesday + '</span>\n' +
-                            '<span>Чт: ' + warehouse.Schedule.Thursday + '</span>\n' +
-                            '<span>Пт: ' + warehouse.Schedule.Friday + '</span>\n' +
-                            '<span>Сб: ' + warehouse.Schedule.Saturday + '</span>\n' +
-                            '<span>Нд: ' + warehouse.Schedule.Sunday + '</span>\n' +
-                            '<span>' + getString(currentLang, 'show_on_map') + '</span>\n' +
-                        '</div>\n' +
-                    '</span>\n' +
-                '</section>\n' +
-                '<section class="table__body tbody weight d-none d-md-block d-lg-block d-xl-block">\n' +
-                    '<span class="tbody__text">' + warehouse.PlaceMaxWeightAllowed + ' кг</span>\n' +
-                '</section>\n';
-        }
-
         function getFilteredResult(filter, warehousesList) {
             $warehouseTable.empty();
-            $warehouseTable.append(createTableHeader());
+
+            $warehouseTable.append(
+                '<section class="table__head">\n' +
+                '<span class="table__text first-line">Відділення/<br>Почтомат</span>\n' +
+                '</section>'
+            );
+
+            $warehouseTable.append('' +
+                '<section class="table__head">\n' +
+                '<span class="table__text">Адреса</span>\n' +
+                '</section>');
+
+            $warehouseTable.append('' +
+                '<section class="table__head d-none d-md-block d-lg-block d-xl-block">\n' +
+                '<span class="table__text">Графік роботи</span>\n' +
+                '</section>');
+
+            $warehouseTable.append('' +
+                '<section class="table__head d-none d-md-block d-lg-block d-xl-block">\n' +
+                '<span class="table__text">Вага до</span>\n' +
+                '</section>');
 
             warehousesList.forEach(function (warehouse) {
                 if ((warehouse.Ref === filter.warehouse || filter.warehouse === '') &&
                     (warehouse.CategoryOfWarehouse === filter.warehouseCategory || filter.warehouseCategory === '') &&
                     (+warehouse.SelfServiceWorkplacesCount === (filter.selfService ? 1 : 0))) {
+                    $warehouseTable.append('      ' +
+                        '<section class="table__body tbody">\n' +
+                        '<span class="tbody__text dep line">\n'
+                        + getWarehouseShortName(warehouse) +
+                        '</span>\n' +
+                        '</section>');
 
-                    $warehouseTable.append(createTableRow(warehouse));
+                    $warehouseTable.append('      ' +
+                        '<section class="table__body tbody">\n' +
+                        '<span class="tbody__text">\n'
+                        + warehouse.Description.split(':').slice(1).join('').match(/(.*)\\(([^)]*)\\)[^(]*$/) +
+                        '</span>\n' +
+                        '</section>');
+
+                    $warehouseTable.append('<section class="table__body tbody d-none d-md-block d-lg-block d-xl-block">\n' +
+                        '      <span class="tbody__text time">\n' +
+                        '   <span class="day">Пн: \n' +
+                        warehouse.Schedule.Monday +
+                        '          </span><button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
+                        '          <label class="switch">\n' +
+                        '             <input class="toggle" type="checkbox" id="collapsable-section-shevron-time">\n' +
+                        '             <span class="slider"></span>\n' +
+                        '           </label>\n' +
+                        '         </button>\n' +
+                        '       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
+                        '          <span>Пн: ' + warehouse.Schedule.Monday + '</span>\n' +
+                        '          <span>Вт: ' + warehouse.Schedule.Tuesday + '</span>\n' +
+                        '          <span>Ср: ' + warehouse.Schedule.Wednesday + '</span>\n' +
+                        '          <span>Чт: ' + warehouse.Schedule.Thursday + '</span>\n' +
+                        '          <span>Пт: ' + warehouse.Schedule.Friday + '</span>\n' +
+                        '          <span>Сб: ' + warehouse.Schedule.Saturday + '</span>\n' +
+                        '          <span>Нд: ' + warehouse.Schedule.Sunday + '</span>\n' +
+                        '          <span>Показати на мапі</span>\n' +
+                        '      </div>\n' +
+                        '      </span>\n' +
+                        '        </section>');
+
+                    $warehouseTable.append('<section class="table__body tbody weight d-none d-md-block d-lg-block d-xl-block">\n' +
+                        '<span class="tbody__text">' + warehouse.PlaceMaxWeightAllowed + ' кг</span></section>');
                 }
             });
         }
@@ -513,68 +539,10 @@
             $isSelfServingCheckbox.prop('checked', false);
         }
 
-        function getString(lang, stringName) {
-            var locale = {
-                ru: {
-                    find: 'Искать',
-                    show_on_map: 'Показать на карте',
-                    advanced_search: 'Расширенный поиск',
-                    close_advanced_search: 'Закрыть расширенный поиск',
-                    clear_all: 'сброс',
-                    show_only: 'Показать только:',
-                    all_wh_types: 'Все типы отделений',
-                    warehouses: 'Отделения',
-                    warehouse: 'Отделение',
-                    postomats: 'Поштоматы',
-                    postomat: 'Почтомат',
-                    office: 'Пункт «Новая Почта»',
-                    sunday_work: 'Работает в воскресенье',
-                    self_service: 'Самообслуживание',
-                    address: 'Адрес',
-                    schedule: 'График работы',
-                    weight_up_to: 'Вес до',
-                    warehouse_short: 'Отд',
-                    postomat_short: 'П-т'
-                },
-                ua: {
-                    find: 'Шукати',
-                    show_on_map: 'Показати на мапі',
-                    advanced_search: 'Розширений пошук',
-                    close_advanced_search: 'Закрити розширений пошук',
-                    clear_all: 'Очистити все',
-                    show_only: 'Показати тільки:',
-                    all_wh_types: 'Всі типи відділень',
-                    warehouses: 'Відділення',
-                    warehouse: 'Відділення',
-                    postomats: 'Поштомати',
-                    postomat: 'Почтомат',
-                    office: 'Пункт «Нова Пошта»',
-                    sunday_work: 'Працює в неділю',
-                    self_service: 'Самообслуговування',
-                    address: 'Адреса',
-                    schedule: 'Графік роботи',
-                    weight_up_to: 'Вага до',
-                    warehouse_short: 'Відд',
-                    postomat_short: 'П-т'
-                }
-            };
-
-            return locale[lang][stringName];
-        }
-
-        function localize(lang) {
-            $('[data-locale]').each(function(index, item){
-                item.textContent = getString(lang, item.dataset.locale);
-            });
-        }
-
         $districtSelect.change(function () {
             if ($districtSelect.val() === '') {
                 selectedDistrictRef = '';
             }
-
-            $citySelect.val('');
-            $warehouseSelect.val('');
 
             getSettlements(selectedDistrictRef, 1, 10000000);
         });
@@ -583,8 +551,6 @@
             if ($citySelect.val() === '') {
                 selectedCityRef = '';
             }
-
-            $warehouseSelect.val('');
 
             getWarehouses(selectedCityRef, 1, 10000000);
         });
@@ -601,13 +567,12 @@
             for (i = 0; i < districts.length; i++) {
                 var district = districts[i];
                 var ruName = district.DescriptionRu;
-                var uaName = district.Description;
-                var $item = $districtSelectorContainer.find('[data-ref=' + district.Ref + ']');
+                var ukName = district.Description;
 
-                if (ruName.toUpperCase().indexOf(filter) > -1 || uaName.toUpperCase().indexOf(filter) > -1) {
-                    $item.show();
+                if (ruName.toUpperCase().indexOf(filter) > -1 || ukName.toUpperCase().indexOf(filter) > -1) {
+                    $districtSelectorContainer.find('[data-ref=' + district.Ref + '][data-lang=' + currentLang + ']').show();
                 } else {
-                    $item.hide();
+                    $districtSelectorContainer.find('[data-ref=' + district.Ref + ']').hide();
                 }
             }
         });
@@ -618,13 +583,12 @@
             for (i = 0; i < citiesList.length; i++) {
                 var city = citiesList[i];
                 var ruName = city.DescriptionRu;
-                var uaName = city.Description;
-                var $item = $districtSelectorContainer.find('[data-ref=' + city.Ref + ']');
+                var ukName = city.Description;
 
-                if (ruName.toUpperCase().indexOf(filter) > -1 || uaName.toUpperCase().indexOf(filter) > -1) {
-                    $item.show();
+                if (ruName.toUpperCase().indexOf(filter) > -1 || ukName.toUpperCase().indexOf(filter) > -1) {
+                    $citySelectorContainer.find('[data-ref=' + city.Ref + '][data-lang=' + currentLang + ']').show();
                 } else {
-                    $item.hide();
+                    $citySelectorContainer.find('[data-ref=' + city.Ref + ']').hide();
                 }
             }
         });
@@ -635,13 +599,12 @@
             for (i = 0; i < warehousesList.length; i++) {
                 var wh = warehousesList[i];
                 var ruName = wh.DescriptionRu;
-                var uaName = wh.Description;
-                var $item = $districtSelectorContainer.find('[data-ref=' + wh.Ref + ']');
+                var ukName = wh.Description;
 
-                if (ruName.toUpperCase().indexOf(filter) > -1 || uaName.toUpperCase().indexOf(filter) > -1) {
-                    $item.show();
+                if (ruName.toUpperCase().indexOf(filter) > -1 || ukName.toUpperCase().indexOf(filter) > -1) {
+                    $warehouseSelectorContainer.find('[data-ref=' + wh.Ref + '][data-lang=' + currentLang + ']').show();
                 } else {
-                    $item.hide();
+                    $warehouseSelectorContainer.find('[data-ref=' + wh.Ref + ']').hide();
                 }
             }
         });
@@ -683,24 +646,21 @@
             getFilteredResult(getFilter(), warehousesList);
         });
 
-        $collapseContent.on('show.bs.collapse', function () {
-            $collapseSectionTitle.text(getString(currentLang, 'close_advanced_search'));
-            $('#collapsable-section-img').html('<img src="./images/arrow-up.svg" alt="">');
+        $('#collapse-content').on('show.bs.collapse', function () {
+            $('#collapsable-section-title').text('Закрити розширений пошук');
+            $('#collapsable-section-img').html('<img src="../images/arrow-up.svg" alt="">');
+            $('#collapsable-section-shevron').prop('checked', true);
         });
 
-        $collapseContent.on('hide.bs.collapse', function () {
-            $collapseSectionTitle.text(getString(currentLang, 'advanced_search'));
-            $('#collapsable-section-img').html('<img src="./images/arrow-down.svg" alt="">');
+        $('#collapse-content').on('hide.bs.collapse', function () {
+            $('#collapsable-section-title').text('Розширений пошук');
+            $('#collapsable-section-shevron').prop('checked', false);
+            $('#collapsable-section-img').html('<img src="../images/arrow-down.svg" alt="">');
         });
 
         $clearBtn.click(function () {
             clearFilterInputs();
         });
-
-        $warehouseTable.empty();
-        $warehouseTable.append(createTableHeader());
-
-        localize(currentLang);
 
         getSettlementAreas();
     });
