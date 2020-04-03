@@ -457,12 +457,17 @@
         }
 
         function createTableRow(warehouse) {
+            var  partAddress = getDescription(currentLang, warehouse).split(':').slice(1).join('');
+            var address = partAddress.match(/(.*)\(([^)]*)\)[^(]*$/) !== null
+                ? partAddress.match(/(.*)\(([^)]*)\)[^(]*$/).slice(1,2).join('')
+                : partAddress;
+
             return '' +
                 '<section class="table__body tbody">\n' +
                 '<span class="tbody__text dep line">' + getWarehouseShortName(warehouse) + '</span>\n' +
                 '</section>\n' +
                 '<section class="table__body tbody">\n' +
-                '<span class="tbody__text">' + getDescription(currentLang, warehouse).split(':').slice(1).join('') + '</span>\n' +
+                '<span class="tbody__text">' + address + '</span>\n' +
                 '</section>\n' +
                 '<section class="table__body tbody d-none d-md-block d-lg-block d-xl-block">\n' +
                 '<span class="tbody__text time">\n' +
