@@ -4,11 +4,7 @@
     url("../fonts/Museosanscyrl500.woff2") format("woff2");
 }
 
-<<<<<<< HEAD
-html, body {
-=======
 html, body, a {
->>>>>>> cee4e0631d61338d76bc8165c78d85cd15ede511
     font-family: "Museo Sans Cyrl", sans-serif;
 }
 
@@ -571,6 +567,7 @@ svg {
     cursor: pointer;
 }
 
+
 .dropdown-menu.show {
     display: flex;
     flex-direction: column;
@@ -648,5 +645,3 @@ svg {
         padding-top: 10px;
     }
 }
-
-
