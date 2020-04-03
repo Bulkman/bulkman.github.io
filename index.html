@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -79,7 +78,8 @@
 
                 <div class="expanded-search">
                     <section class="expanded-search__buttons">
-                        <div data-toggle="collapse" data-target="#collapse-content" aria-expanded="false" aria-controls="collapse-content">
+                        <div data-toggle="collapse" data-target="#collapse-content" aria-expanded="false"
+                             aria-controls="collapse-content">
                             <span id="collapsable-section-title" class="activate">Розширений пошук</span>
                             <div class="btn">
                                 <label class="switch">
@@ -91,7 +91,8 @@
 
                         <div id="clear-btn">
                             <span>Очистити все</span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.72125 1.33625C10.0133 1.04423 10.0133 0.57077 9.72125 0.27875C9.42923 -0.0132705 8.95577 -0.0132706 8.66375 0.27875L5 3.9425L1.33625 0.27875C1.04423 -0.013271 0.57077 -0.0132705 0.27875 0.27875C-0.0132705 0.57077 -0.0132706 1.04423 0.27875 1.33625L3.9425 5L0.27875 8.66375C-0.013271 8.95577 -0.0132705 9.42923 0.27875 9.72125C0.57077 10.0133 1.04423 10.0133 1.33625 9.72125L5 6.0575L8.66375 9.72125C8.95577 10.0133 9.42923 10.0133 9.72125 9.72125C10.0133 9.42923 10.0133 8.95577 9.72125 8.66375L6.0575 5L9.72125 1.33625Z"
                                       fill="black" fill-opacity="0.54"/>
                             </svg>
@@ -105,16 +106,16 @@
                             <div class="select-container select">
 
                                 <select id="warehouse-type-selector" class="search__select .select_280">
-                                    <option value="" disabled selected>Всі типи відділень</option>
-                                    <option value="1">Всі типи відділень</option>
-                                    <option value="2">Всі типи відділень</option>
-                                    <option value="3">Всі типи відділень</option>
-                                    <option value="4">Всі типи відділень</option>
+                                    <option value="" selected>Всі типи відділень</option>
+                                    <option value="Branch">Відділення</option>
+                                    <option value="Postomat">Поштомати</option>
+                                    <option value="Office">Пункт «Нова Пошта»</option>
                                 </select>
                             </div>
 
 
-                            <input class="n_checkbox" type="checkbox" id="is-work-on-sunday" name="workInSunday" value="">
+                            <input class="n_checkbox" type="checkbox" id="is-work-on-sunday" name="workInSunday"
+                                   value="">
                             <label for="is-work-on-sunday" class="n_label">Працює в неділю</label>
 
                             <input class="n_checkbox" type="checkbox" id="is-self-serve" name="self" value="">
@@ -131,8 +132,21 @@
 
 <section class="table">
     <secrion class="table__container" id="table__container">
+        <section class="table__head">
+            <span class="table__text dep">Відділення/<br>Почтомат</span>
+        </section>
 
+        <section class="table__head">
+            <span class="table__text">Адреса</span>
+        </section>
 
+        <section class="table__head">
+            <span class="table__text">Графік роботи</span>
+        </section>
+
+        <section class="table__head">
+            <span class="table__text">Вага до</span>
+        </section>
     </secrion>
 </section>
 
@@ -280,7 +294,7 @@
                 Ref: 'dcaae6a8-4b33-11e4-ab6d-005056801329',
                 Description: 'Чернігівська',
                 DescriptionRu: 'Черниговская'
-            },
+            }
         ];
         var warehousesList = [];
         var citiesList = [];
@@ -304,7 +318,7 @@
                 var ukA = $('<a data-value="' + district.Description + '" data-lang="uk" data-ref="' + district.Ref + '">' + district.Description + '</a>');
                 var ruA = $('<a data-value="' + district.DescriptionRu + '" data-lang="ru" data-ref="' + district.Ref + '">' + district.DescriptionRu + '</a>');
 
-                if(currentLang === 'uk'){
+                if (currentLang === 'uk') {
                     ukA.hide();
                 } else {
                     ruA.hide();
@@ -314,35 +328,10 @@
                 $districtSelectorContainer.append(ruA);
             });
 
-            $districtSelectorContainer.find('a').off().on('click', function() {
+            $districtSelectorContainer.find('a').off().on('click', function () {
                 selectedDistrictRef = this.dataset.ref;
                 $districtSelect.val(this.text).change();
             });
-
-            // $.ajax({
-            //     type: 'POST',
-            //     url: 'https://api.novaposhta.ua/v2.0/json/',
-            //     data: JSON.stringify({
-            //         apiKey: '',
-            //         modelName: 'Address',
-            //         calledMethod: 'getSettlementAreas',
-            //         methodProperties: {}
-            //     }),
-            //     dataType: 'json',
-            //     success: function (response) {
-            //         $districtSelect.empty();
-            //         $districtSelect.append('<option value=""selected>Виберіть область</option>');
-            //
-            //         if (response.success) {
-            //             response.data.forEach(function (area) {
-            //                 $districtSelect.append('<option value="' + area.Ref + '">' + area.Description + '</option>');
-            //             });
-            //
-            //             $districtSelect.val(response.data[0] ? response.data[0].Ref : '').change();
-            //         }
-            //
-            //     }
-            // });
         }
 
         function getSettlements(areaRef, page, limit) {
@@ -370,7 +359,7 @@
                             var ukA = $('<a data-value="' + city.Description + '" data-lang="uk" data-ref="' + city.Ref + '">' + city.Description + '</a>');
                             var ruA = $('<a data-value="' + city.DescriptionRu + '" data-lang="ru" data-ref="' + city.Ref + '">' + city.DescriptionRu + '</a>');
 
-                            if(currentLang === 'uk'){
+                            if (currentLang === 'uk') {
                                 ukA.hide();
                             } else {
                                 ruA.hide();
@@ -380,7 +369,7 @@
                             $citySelectorContainer.append(ruA);
                         });
 
-                        $citySelectorContainer.find('a').off().on('click', function() {
+                        $citySelectorContainer.find('a').off().on('click', function () {
                             selectedCityRef = this.dataset.ref;
                             $citySelect.val(this.text).change();
                         });
@@ -390,15 +379,27 @@
         }
 
         function getWarehouseName(warehouse) {
-            if(warehouse.CategoryOfWarehouse === categoryWarehouse) {
+            if (warehouse.CategoryOfWarehouse === categoryWarehouse) {
                 return 'Отделение №' + warehouse.Number;
-            } else if(warehouse.CategoryOfWarehouse === categoryPostmap) {
+            } else if (warehouse.CategoryOfWarehouse === categoryPostmap) {
                 return 'Почтомат №' + warehouse.Number;
-            } else if(warehouse.CategoryOfWarehouse === categoryOffice) {
+            } else if (warehouse.CategoryOfWarehouse === categoryOffice) {
                 return 'Пункт «Нова Пошта» №' + warehouse.Number;
             }
 
             return 'Отделение №' + warehouse.Number;
+        }
+
+        function getWarehouseShortName(warehouse) {
+            if (warehouse.CategoryOfWarehouse === categoryWarehouse) {
+                return 'Отд №' + warehouse.Number;
+            } else if (warehouse.CategoryOfWarehouse === categoryPostmap) {
+                return 'П-т №' + warehouse.Number;
+            } else if (warehouse.CategoryOfWarehouse === categoryOffice) {
+                return 'Пункт «Нова Пошта» №' + warehouse.Number;
+            }
+
+            return 'Отд №' + warehouse.Number;
         }
 
         function getWarehouses(cityRef, page, limit) {
@@ -425,7 +426,7 @@
                             var ukA = $('<a data-value="' + warehouse.Description + '" data-lang="uk" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
                             var ruA = $('<a data-value="' + warehouse.DescriptionRu + '" data-lang="ru" data-ref="' + warehouse.Ref + '">' + getWarehouseName(warehouse) + '</a>');
 
-                            if(currentLang === 'uk'){
+                            if (currentLang === 'uk') {
                                 ukA.hide();
                             } else {
                                 ruA.hide();
@@ -435,7 +436,7 @@
                             $warehouseSelectorContainer.append(ruA);
                         });
 
-                        $warehouseSelectorContainer.find('a').off().on('click', function() {
+                        $warehouseSelectorContainer.find('a').off().on('click', function () {
                             selectedWarehouseRef = this.dataset.ref;
                             $warehouseSelect.val(this.text).change();
                         });
@@ -479,11 +480,13 @@
                 '</section>');
 
             warehousesList.forEach(function (warehouse) {
-                if ((warehouse.Ref === filter.warehouse || filter.warehouse === '')) {
+                if ((warehouse.Ref === filter.warehouse || filter.warehouse === '') &&
+                    (warehouse.CategoryOfWarehouse === filter.warehouseCategory || filter.warehouseCategory === '') &&
+                    (+warehouse.SelfServiceWorkplacesCount === (filter.selfService ? 1 : 0))) {
                     $warehouseTable.append('      ' +
                         '<section class="table__body tbody">\n' +
                         '<span class="tbody__text dep line">\n'
-                        + getWarehouseName(warehouse) +
+                        + getWarehouseShortName(warehouse) +
                         '</span>\n' +
                         '</section>');
 
@@ -525,33 +528,33 @@
         }
 
         function clearFilterInputs() {
-            $districtSelect.val("").change();
-            $citySelect.val("").change();
-            $warehouseSelect.val("").change();
-            $warehouseTypeSelect.val("").change();
+            $districtSelect.val('').change();
+            $citySelect.val('').change();
+            $warehouseSelect.val('').change();
+            $warehouseTypeSelect.val('').change();
             $isWorkingOnSundayCheckbox.prop('checked', false);
             $isSelfServingCheckbox.prop('checked', false);
         }
 
         $districtSelect.change(function () {
-            if($districtSelect.val() === '') {
-                selectedDistrictRef = ''
+            if ($districtSelect.val() === '') {
+                selectedDistrictRef = '';
             }
 
             getSettlements(selectedDistrictRef, 1, 10000000);
         });
 
         $citySelect.change(function () {
-            if($citySelect.val() === '') {
-                selectedCityRef = ''
+            if ($citySelect.val() === '') {
+                selectedCityRef = '';
             }
 
             getWarehouses(selectedCityRef, 1, 10000000);
         });
 
         $warehouseSelect.change(function () {
-            if($warehouseSelect.val() === '') {
-                selectedWarehouseRef = ''
+            if ($warehouseSelect.val() === '') {
+                selectedWarehouseRef = '';
             }
         });
 
@@ -603,31 +606,31 @@
             }
         });
 
-        $districtSelect.focusin(function() {
+        $districtSelect.focusin(function () {
             $districtSelectorContainer.show();
         });
 
-        $districtSelect.focusout(function() {
-            setTimeout(function() { $districtSelectorContainer.hide(); }, 350);
+        $districtSelect.focusout(function () {
+            setTimeout(function () { $districtSelectorContainer.hide(); }, 350);
         });
 
-        $citySelect.focusin(function() {
+        $citySelect.focusin(function () {
             $citySelectorContainer.show();
             // if($citySelectorContainer.children().length > 0) {
             //     $citySelectorContainer.show();
             // }
         });
 
-        $citySelect.focusout(function() {
-            setTimeout(function() { $citySelectorContainer.hide(); }, 350);
+        $citySelect.focusout(function () {
+            setTimeout(function () { $citySelectorContainer.hide(); }, 350);
         });
 
-        $warehouseSelect.focusin(function() {
+        $warehouseSelect.focusin(function () {
             $warehouseSelectorContainer.show();
         });
 
-        $warehouseSelect.focusout(function() {
-            setTimeout(function() { $warehouseSelectorContainer.hide(); }, 350);
+        $warehouseSelect.focusout(function () {
+            setTimeout(function () { $warehouseSelectorContainer.hide(); }, 350);
         });
 
         $findWarehouseBtn.click(function () {
@@ -649,40 +652,6 @@
         });
 
         getSettlementAreas();
-
-        // function getNearestWarehouses(filter) {
-        //     if(navigator.geolocation) {
-        //         navigator.geolocation.getCurrentPosition(function(position) {
-        //             $.ajax({
-        //                 type: 'POST',
-        //                 url: '/shop/office/getnearestwarenhouse',
-        //                 data: {
-        //                     x: parseFloat(position.coords.longitude),
-        //                     y: parseFloat(position.coords.latitude),
-        //                     filter: filter,
-        //                     type: 'list'
-        //                 },
-        //                 dataType: 'json',
-        //                 success: function (json) {
-        //                     if (json) {
-        //                         $(".offices_wrap .offices").show();
-        //                         $(".offices_wrap .offices tbody").html(json.html);
-        //                     } else {
-        //                         $(".offices_wrap .offices tbody").html('<tr><td>' + appParameters.tr_notfound + '</td></tr>');
-        //                     }
-        //                 }
-        //             });
-        //         }, function(err) {
-        //         }, { timeout: 10 * 1000, maximumAge: 5 * 60 * 1000 });
-        //     } else {
-        //     }
-        // }
-
-        // $findWarehouseBtn.click(function () {
-        //     getNearestWarehouses(getFilter());
-        // });
-
-        // getNearestWarehouses(getFilter());
     });
 </script>
 </body>
