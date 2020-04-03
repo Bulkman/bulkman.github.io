@@ -583,7 +583,7 @@ svg {
   color: #7D7D7D;
   transform: none !important;
   top: -124px!important;
-  left: 75px!important;
+  left: calc(50% - 50px)!important;
 }
 
 .dropdown-menu {
