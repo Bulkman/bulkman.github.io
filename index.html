@@ -154,7 +154,6 @@
         var $isSelfServingCheckbox = $('#is-self-serve');
         var $clearBtn = $('#clear-btn');
         var $warehouseTable = $('#table__container');
-        var pattern_street = /a/g;
 
         var districts = [
             {
@@ -502,7 +501,7 @@
                               warehouse.Schedule.Monday +
                         '          <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
                         '          <label class="switch">\n' +
-                        '             <input class="toggle" type="checkbox">\n' +
+                        '             <input class="toggle" type="checkbox" id="collapsable-section-shevron-time">\n' +
                         '             <span class="slider"></span>\n' +
                         '           </label>\n' +
                         '         </button>\n' +

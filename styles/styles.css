@@ -488,11 +488,13 @@ svg {
   width: 40px;
   height: 20px;
   background: url("../images/time_toggle.svg") no-repeat;
+  cursor: pointer;
 }
 
 
-.time .toggle:checked + .slider:before {
+[aria-expanded="true"] .slider:before {
   background: url("../images/time_toggle_up.svg") no-repeat;
+  z-index: 1;
 }
 
 .time .btn {
@@ -553,7 +555,7 @@ svg {
   text-align: center;
   color: #7D7D7D;
   transform: none !important;
-  top: -130px!important;
+  top: -140px!important;
   left: 75px!important;
 }
 
@@ -566,4 +568,10 @@ svg {
 .btn.focus, .btn:focus {
   outline: none !important;
   box-shadow: none!important;
+}
+
+.tog {
+  height: 20px;
+  width: 20px;
+  background: url("../images/time_toggle_up.svg");
 }
