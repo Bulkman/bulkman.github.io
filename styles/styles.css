@@ -8,10 +8,6 @@ html {
     font-family: "Museo Sans Cyrl", sans-serif;
 }
 
-.selector-container {
-    z-index: 2;
-}
-
 svg {
     z-index: 1;
 }
@@ -558,7 +554,7 @@ svg {
     top: 42px;
     background-color: #fff;
     /*overflow: hidden;*/
-    z-index: 1;
+    z-index: 2;
     padding-left: 30px;
     box-sizing: border-box;
     border: 1px solid #D3D3D3;
@@ -631,7 +627,6 @@ svg {
 
 
 }
-
 
 @media screen and (max-width: 485px) {
     .table__body {
