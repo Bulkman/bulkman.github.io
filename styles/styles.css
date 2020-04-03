@@ -419,7 +419,7 @@ svg {
 .table__container {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 430px repeat(2, 1fr);
   width: 1032px;
 }
 
@@ -469,7 +469,7 @@ svg {
   text-decoration: underline;
   font-weight: bold;
   justify-content: end;
-  padding-left: 60px;
+  padding-left: 40px;
   box-sizing: border-box;
   position: relative;
 }
@@ -607,5 +607,13 @@ svg {
 @media screen and (max-width: 1032px){
   .dropdown-menu.show {
     left: calc(50% - 54px)!important;
+  }
+
+  .line:after {
+    width: 100vw;
+  }
+
+  .first-line:after {
+    width: 100vw;
   }
 }
