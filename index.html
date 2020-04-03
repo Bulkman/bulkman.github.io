@@ -84,7 +84,10 @@
                             <span id="collapsable-section-title" class="activate">
                                 Розширений пошук
                             </span>
-                            <span id="collapsable-section-img"></span>
+                            <span id="collapsable-section-img">
+                                <img src="../images/arrow-down.svg" alt="">
+                            </span>
+
                             <div class="btn">
 <!--                                <label class="switch">-->
 <!--                                    <input id="collapsable-section-shevron" class="toggle" type="checkbox">-->
@@ -648,12 +651,14 @@
 
         $('#collapse-content').on('show.bs.collapse', function () {
             $('#collapsable-section-title').text('Закрити розширений пошук');
+            $('#collapsable-section-img').html('<img src="../images/arrow-up.svg" alt="">');
             $('#collapsable-section-shevron').prop('checked', true);
         });
 
         $('#collapse-content').on('hide.bs.collapse', function () {
             $('#collapsable-section-title').text('Розширений пошук');
             $('#collapsable-section-shevron').prop('checked', false);
+            $('#collapsable-section-img').html('<img src="../images/arrow-down.svg" alt="">');
         });
 
         $clearBtn.click(function () {
