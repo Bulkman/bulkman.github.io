@@ -28,7 +28,7 @@ svg {
 
 .o_search {
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .o_search .n_main {
@@ -482,6 +482,7 @@ svg {
   position: absolute;
   left: 0;
   width: 1032px;
+  z-index: -1;
 }
 
 .first-line:after {
@@ -582,7 +583,7 @@ svg {
   text-align: center;
   color: #7D7D7D;
   transform: none !important;
-  top: -115px!important;
+  top: -124px!important;
   left: 75px!important;
 }
 
