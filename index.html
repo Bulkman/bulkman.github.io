@@ -32,7 +32,8 @@
                         </svg>
 
                         <input id="district-selector" class="search__select" autocomplete="off">
-                        <div id="district-selector-container" class="selector-container" style="display: none; z-index: 2">
+                        <div id="district-selector-container" class="selector-container"
+                             style="display: none; z-index: 2">
 
                         </div>
                     </div>
@@ -80,12 +81,15 @@
                     <section class="expanded-search__buttons">
                         <div data-toggle="collapse" data-target="#collapse-content" aria-expanded="false"
                              aria-controls="collapse-content">
-                            <span id="collapsable-section-title" class="activate">Розширений пошук</span>
+                            <span id="collapsable-section-title" class="activate">
+                                Розширений пошук
+                            </span>
+                            <span id="collapsable-section-img"></span>
                             <div class="btn">
-                                <label class="switch">
-                                    <input id="collapsable-section-shevron" class="toggle" type="checkbox">
-                                    <span class="slider"></span>
-                                </label>
+<!--                                <label class="switch">-->
+<!--                                    <input id="collapsable-section-shevron" class="toggle" type="checkbox">-->
+<!--                                    <span class="slider"></span>-->
+<!--                                </label>-->
                             </div>
                         </div>
 
@@ -499,8 +503,7 @@
 
                     $warehouseTable.append('<section class="table__body tbody d-none d-md-block d-lg-block d-xl-block">\n' +
                         '      <span class="tbody__text time">\n' +
-                        '        <div class="dropdown">\n' +
-                        '   </div><span class="day">Пн: \n' +
+                        '   <span class="day">Пн: \n' +
                         warehouse.Schedule.Monday +
                         '          </span><button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
                         '          <label class="switch">\n' +
