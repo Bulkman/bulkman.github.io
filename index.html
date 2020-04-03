@@ -31,7 +31,7 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="district-selector" class="search__select" autocomplete="off">
+                        <input id="district-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_district">
                         <div id="district-selector-container" class="selector-container"
                              style="display: none; z-index: 2">
 
@@ -46,7 +46,7 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="city-selector" class="search__select" autocomplete="off">
+                        <input id="city-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_city">
                         <div id="city-selector-container" class="selector-container" style="display: none;">
 
                         </div>
@@ -60,7 +60,7 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="warehouse-selector" class="search__select" autocomplete="off">
+                        <input id="warehouse-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_warehouse">
                         <div id="warehouse-selector-container" class="selector-container" style="display: none;">
 
                         </div>
@@ -486,6 +486,7 @@
             warehousesList.forEach(function (warehouse) {
                 if ((warehouse.Ref === filter.warehouse || filter.warehouse === '') &&
                     (warehouse.CategoryOfWarehouse === filter.warehouseCategory || filter.warehouseCategory === '') &&
+<<<<<<< HEAD
                     (+warehouse.SelfServiceWorkplacesCount === (filter.selfService ? 1 : 0))) {
                     $warehouseTable.append('      ' +
                         '<section class="table__body tbody">\n' +
@@ -526,6 +527,11 @@
 
                     $warehouseTable.append('<section class="table__body tbody weight d-none d-md-block d-lg-block d-xl-block">\n' +
                         '<span class="tbody__text">' + warehouse.PlaceMaxWeightAllowed + ' кг</span></section>');
+=======
+                    (+warehouse.SelfServiceWorkplacesCount === 1 || !filter.selfService)) {
+
+                    $warehouseTable.append(createTableRow(warehouse));
+>>>>>>> cee4e0631d61338d76bc8165c78d85cd15ede511
                 }
             });
         }
@@ -539,6 +545,74 @@
             $isSelfServingCheckbox.prop('checked', false);
         }
 
+<<<<<<< HEAD
+=======
+        function getString(lang, stringName) {
+            var locale = {
+                ru: {
+                    find: 'Искать',
+                    show_on_map: 'Показать на карте',
+                    advanced_search: 'Расширенный поиск',
+                    close_advanced_search: 'Закрыть расширенный поиск',
+                    clear_all: 'сброс',
+                    show_only: 'Показать только:',
+                    all_wh_types: 'Все типы отделений',
+                    warehouses: 'Отделения',
+                    warehouse: 'Отделение',
+                    postomats: 'Поштоматы',
+                    postomat: 'Почтомат',
+                    office: 'Пункт «Новая Почта»',
+                    sunday_work: 'Работает в воскресенье',
+                    self_service: 'Самообслуживание',
+                    address: 'Адрес',
+                    schedule: 'График работы',
+                    weight_up_to: 'Вес до',
+                    warehouse_short: 'Отд',
+                    postomat_short: 'П-т',
+                    choose_district: 'Выберите облать',
+                    choose_city: 'Выберите насел. пункт',
+                    choose_warehouse: 'Все отделения'
+                },
+                ua: {
+                    find: 'Шукати',
+                    show_on_map: 'Показати на мапі',
+                    advanced_search: 'Розширений пошук',
+                    close_advanced_search: 'Закрити розширений пошук',
+                    clear_all: 'Очистити все',
+                    show_only: 'Показати тільки:',
+                    all_wh_types: 'Всі типи відділень',
+                    warehouses: 'Відділення',
+                    warehouse: 'Відділення',
+                    postomats: 'Поштомати',
+                    postomat: 'Почтомат',
+                    office: 'Пункт «Нова Пошта»',
+                    sunday_work: 'Працює в неділю',
+                    self_service: 'Самообслуговування',
+                    address: 'Адреса',
+                    schedule: 'Графік роботи',
+                    weight_up_to: 'Вага до',
+                    warehouse_short: 'Відд',
+                    postomat_short: 'П-т',
+                    choose_district: 'Виберіть область',
+                    choose_city: 'Виберіть насел. пункт',
+                    choose_warehouse: 'Всі відділення'
+                }
+            };
+
+            return locale[lang][stringName];
+        }
+
+        function localize(lang) {
+            $('[data-locale]').each(function(index, item){
+                item.textContent = getString(lang, item.dataset.locale);
+            });
+
+            $('[data-locale-placeholder]').each(function(index, item){
+                $(item).attr("placeholder", getString(lang, item.dataset.localePlaceholder));
+            });
+        }
+
+>>>>>>> cee4e0631d61338d76bc8165c78d85cd15ede511
         $districtSelect.change(function () {
             if ($districtSelect.val() === '') {
                 selectedDistrictRef = '';
