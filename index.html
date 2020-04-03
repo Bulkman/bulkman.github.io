@@ -581,22 +581,54 @@
         $districtSelect.change(function () {
             if ($districtSelect.val() === '') {
                 selectedDistrictRef = '';
+            } else {
+                // User did not selected any value but input string is still valid e.g Киев
+                if(selectedDistrictRef === '') {
+                    for (i = 0; i < districts.length; i++) {
+                        var district = districts[i];
+                        var ruName = district.DescriptionRu;
+                        var uaName = district.Description;
+
+                        if (ruName.toUpperCase().indexOf($districtSelect.val().toUpperCase()) > -1 || uaName.toUpperCase().indexOf($districtSelect.val().toUpperCase()) > -1) {
+                            selectedDistrictRef = district.Ref;
+                            break;
+                        }
+                    }
+                }
             }
 
             $citySelect.val('');
             $warehouseSelect.val('');
 
             getSettlements(selectedDistrictRef, 1, 10000000);
+
+            selectedDistrictRef = '';
         });
 
         $citySelect.change(function () {
             if ($citySelect.val() === '') {
                 selectedCityRef = '';
+            } else {
+                // User did not selected any value but input string is still valid e.g Киев
+                if(selectedCityRef === '') {
+                    for (i = 0; i < citiesList.length; i++) {
+                        var city = citiesList[i];
+                        var ruName = city.DescriptionRu;
+                        var uaName = city.Description;
+
+                        if (ruName.toUpperCase().indexOf($citySelect.val().toUpperCase()) > -1 || uaName.toUpperCase().indexOf($citySelect.val().toUpperCase()) > -1) {
+                            selectedCityRef = city.Ref;
+                            break;
+                        }
+                    }
+                }
             }
 
             $warehouseSelect.val('');
 
             getWarehouses(selectedCityRef, 1, 10000000);
+
+            selectedCityRef = '';
         });
 
         $warehouseSelect.change(function () {
