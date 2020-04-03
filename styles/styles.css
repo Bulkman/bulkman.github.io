@@ -436,6 +436,7 @@ svg {
   display: flex;
   justify-content: center;
   height: 71px;
+  position: relative;
 }
 
 .table__text {
@@ -462,8 +463,6 @@ svg {
   height: 70px;
   position: relative;
 }
-
-
 
 .dep {
   text-decoration: underline;
