@@ -31,7 +31,7 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="district-selector" class="search__select" autocomplete="off">
+                        <input id="district-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_district">
                         <div id="district-selector-container" class="selector-container"
                              style="display: none; z-index: 2">
 
@@ -46,7 +46,7 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="city-selector" class="search__select" autocomplete="off">
+                        <input id="city-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_city">
                         <div id="city-selector-container" class="selector-container" style="display: none;">
 
                         </div>
@@ -60,7 +60,7 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="warehouse-selector" class="search__select" autocomplete="off">
+                        <input id="warehouse-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_warehouse">
                         <div id="warehouse-selector-container" class="selector-container" style="display: none;">
 
                         </div>
@@ -497,7 +497,7 @@
             warehousesList.forEach(function (warehouse) {
                 if ((warehouse.Ref === filter.warehouse || filter.warehouse === '') &&
                     (warehouse.CategoryOfWarehouse === filter.warehouseCategory || filter.warehouseCategory === '') &&
-                    (+warehouse.SelfServiceWorkplacesCount === (filter.selfService ? 1 : 0))) {
+                    (+warehouse.SelfServiceWorkplacesCount === 1 || !filter.selfService)) {
 
                     $warehouseTable.append(createTableRow(warehouse));
                 }
@@ -534,7 +534,10 @@
                     schedule: 'График работы',
                     weight_up_to: 'Вес до',
                     warehouse_short: 'Отд',
-                    postomat_short: 'П-т'
+                    postomat_short: 'П-т',
+                    choose_district: 'Выберите облать',
+                    choose_city: 'Выберите насел. пункт',
+                    choose_warehouse: 'Все отделения'
                 },
                 ua: {
                     find: 'Шукати',
@@ -555,7 +558,10 @@
                     schedule: 'Графік роботи',
                     weight_up_to: 'Вага до',
                     warehouse_short: 'Відд',
-                    postomat_short: 'П-т'
+                    postomat_short: 'П-т',
+                    choose_district: 'Виберіть область',
+                    choose_city: 'Виберіть насел. пункт',
+                    choose_warehouse: 'Всі відділення'
                 }
             };
 
@@ -565,6 +571,10 @@
         function localize(lang) {
             $('[data-locale]').each(function(index, item){
                 item.textContent = getString(lang, item.dataset.locale);
+            });
+
+            $('[data-locale-placeholder]').each(function(index, item){
+                $(item).attr("placeholder", getString(lang, item.dataset.localePlaceholder));
             });
         }
 
