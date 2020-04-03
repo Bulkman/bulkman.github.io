@@ -140,11 +140,11 @@
             <span class="table__text">Адреса</span>
         </section>
 
-        <section class="table__head">
+        <section class="table__head d-none d-md-block d-lg-block d-xl-block">
             <span class="table__text">Графік роботи</span>
         </section>
 
-        <section class="table__head">
+        <section class="table__head d-none d-md-block d-lg-block d-xl-block">
             <span class="table__text">Вага до</span>
         </section>
     </section>
@@ -470,12 +470,12 @@
                 '</section>');
 
             $warehouseTable.append('' +
-                '<section class="table__head">\n' +
+                '<section class="table__head d-none d-md-block d-lg-block d-xl-block">\n' +
                 '<span class="table__text">Графік роботи</span>\n' +
                 '</section>');
 
             $warehouseTable.append('' +
-                '<section class="table__head">\n' +
+                '<section class="table__head d-none d-md-block d-lg-block d-xl-block">\n' +
                 '<span class="table__text">Вага до</span>\n' +
                 '</section>');
 
@@ -497,7 +497,7 @@
                         '</span>\n' +
                         '</section>');
 
-                    $warehouseTable.append('<section class="table__body tbody">\n' +
+                    $warehouseTable.append('<section class="table__body tbody d-none d-md-block d-lg-block d-xl-block">\n' +
                         '      <span class="tbody__text time">\n' +
                         '        <div class="dropdown">\n' +
                         '   </div><span class="day">Пн: \n' +
@@ -521,7 +521,7 @@
                         '      </span>\n' +
                         '        </section>');
 
-                    $warehouseTable.append('<section class="table__body tbody weight">\n' +
+                    $warehouseTable.append('<section class="table__body tbody weight d-none d-md-block d-lg-block d-xl-block">\n' +
                         '<span class="tbody__text">' + warehouse.PlaceMaxWeightAllowed + ' кг</span></section>');
                 }
             });
