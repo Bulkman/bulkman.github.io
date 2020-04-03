@@ -311,7 +311,7 @@
                 $districtSelectorContainer.append(link);
             });
 
-            $districtSelectorContainer.find('a').off().on('click', function () {
+            $districtSelectorContainer.find('a').off().on('mousedown', function () {
                 selectedDistrictRef = this.dataset.ref;
                 $districtSelect.val(this.text).change();
             });
@@ -343,7 +343,7 @@
                             $citySelectorContainer.append(link);
                         });
 
-                        $citySelectorContainer.find('a').off().on('click', function () {
+                        $citySelectorContainer.find('a').off().on('mousedown', function () {
                             selectedCityRef = this.dataset.ref;
                             $citySelect.val(this.text).change();
                         });
@@ -406,7 +406,7 @@
                             $warehouseSelectorContainer.append(link);
                         });
 
-                        $warehouseSelectorContainer.find('a').off().on('click', function () {
+                        $warehouseSelectorContainer.find('a').off().on('mousedown', function () {
                             selectedWarehouseRef = this.dataset.ref;
                             $warehouseSelect.val(this.text).change();
                         });
@@ -629,7 +629,7 @@
                 var city = citiesList[i];
                 var ruName = city.DescriptionRu;
                 var uaName = city.Description;
-                var $item = $districtSelectorContainer.find('[data-ref=' + city.Ref + ']');
+                var $item = $citySelectorContainer.find('[data-ref=' + city.Ref + ']');
 
                 if (ruName.toUpperCase().indexOf(filter) > -1 || uaName.toUpperCase().indexOf(filter) > -1) {
                     $item.show();
@@ -646,7 +646,7 @@
                 var wh = warehousesList[i];
                 var ruName = wh.DescriptionRu;
                 var uaName = wh.Description;
-                var $item = $districtSelectorContainer.find('[data-ref=' + wh.Ref + ']');
+                var $item = $warehouseSelectorContainer.find('[data-ref=' + wh.Ref + ']');
 
                 if (ruName.toUpperCase().indexOf(filter) > -1 || uaName.toUpperCase().indexOf(filter) > -1) {
                     $item.show();
@@ -661,22 +661,15 @@
         });
 
         $districtSelect.focusout(function () {
-            setTimeout(function () {
-                $districtSelectorContainer.hide();
-            }, 350);
+            $districtSelectorContainer.hide();
         });
 
         $citySelect.focusin(function () {
             $citySelectorContainer.show();
-            // if($citySelectorContainer.children().length > 0) {
-            //     $citySelectorContainer.show();
-            // }
         });
 
         $citySelect.focusout(function () {
-            setTimeout(function () {
-                $citySelectorContainer.hide();
-            }, 350);
+            $citySelectorContainer.hide();
         });
 
         $warehouseSelect.focusin(function () {
@@ -684,9 +677,7 @@
         });
 
         $warehouseSelect.focusout(function () {
-            setTimeout(function () {
-                $warehouseSelectorContainer.hide();
-            }, 350);
+            $warehouseSelectorContainer.hide();
         });
 
         $findWarehouseBtn.click(function () {
