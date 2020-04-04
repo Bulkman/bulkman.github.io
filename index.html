@@ -462,6 +462,9 @@
                 ? partAddress.match(/(.*)\(([^)]*)\)[^(]*$/).slice(1,2).join('')
                 : partAddress;
 
+            var weigth = warehouse.TotalMaxWeightAllowed !== 0 ? warehouse.TotalMaxWeightAllowed : '30';
+            var day = warehouse.Schedule;
+
             return '' +
                 '<section class="table__body tbody">\n' +
                 '<span class="tbody__text dep line">' + getWarehouseShortName(warehouse) + '</span>\n' +
@@ -479,19 +482,19 @@
                 '</label>\n' +
                 '</button>\n' +
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
-                '<span>Пн: ' + warehouse.Schedule.Monday + '</span>\n' +
-                '<span>Вт: ' + warehouse.Schedule.Tuesday + '</span>\n' +
-                '<span>Ср: ' + warehouse.Schedule.Wednesday + '</span>\n' +
-                '<span>Чт: ' + warehouse.Schedule.Thursday + '</span>\n' +
-                '<span>Пт: ' + warehouse.Schedule.Friday + '</span>\n' +
-                '<span>Сб: ' + warehouse.Schedule.Saturday + '</span>\n' +
-                '<span>Нд: ' + warehouse.Schedule.Sunday + '</span>\n' +
+                '<span>Пн: ' + day.Monday + '</span>\n' +
+                '<span>Вт: ' + day.Tuesday + '</span>\n' +
+                '<span>Ср: ' + day.Wednesday + '</span>\n' +
+                '<span>Чт: ' + day.Thursday + '</span>\n' +
+                '<span>Пт: ' + day.Friday + '</span>\n' +
+                '<span>Сб: ' + day.Saturday + '</span>\n' +
+                '<span>Нд: ' + day.Sunday + '</span>\n' +
                 '<span>' + getString(currentLang, 'show_on_map') + '</span>\n' +
                 '</div>\n' +
                 '</span>\n' +
                 '</section>\n' +
                 '<section class="table__body tbody weight d-none d-md-block d-lg-block d-xl-block">\n' +
-                '<span class="tbody__text">' + warehouse.PlaceMaxWeightAllowed + ' кг</span>\n' +
+                '<span class="tbody__text">' + weigth + ' кг</span>\n' +
                 '</section>\n';
         }
 
