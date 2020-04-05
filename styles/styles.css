@@ -269,6 +269,9 @@ svg {
     background: url("../images/arrow-down.svg");
 }
 
+.expanded-search__toggle {
+    cursor: pointer;
+}
 
 .switch {
     position: relative;
@@ -511,7 +514,8 @@ svg {
     height: 20px;
     background: url("../images/time_toggle.svg") no-repeat;
     cursor: pointer;
-    top: 25px
+    top: 25px;
+    left: -9px;
 }
 
 
@@ -533,7 +537,7 @@ svg {
     flex-direction: column;
     bottom: 5px;
     background: #FFFFFF;
-    box-shadow: 0px 1px 6px rgba(132, 132, 132, 0.25);
+    box-shadow: 0 1px 6px rgba(132, 132, 132, 0.25);
     border-radius: 4px;
     box-sizing: border-box;
     padding: 8px 14px 30px 14px;
@@ -581,8 +585,8 @@ svg {
     text-align: center;
     color: #7D7D7D;
     transform: none !important;
-    top: -124px !important;
-    left: calc(50% - 50px) !important;
+    top: -117px !important;
+    left: calc(50% - 54px) !important;
 }
 
 .dropdown-menu {
@@ -614,18 +618,12 @@ svg {
     .table__container {
         grid-template-columns: 1fr 2fr repeat(2, 1fr);
     }
-
-    .dropdown-menu.show {
-        left: calc(50% - 54px) !important;
-    }
 }
 
 @media screen and (max-width: 767px) {
     .table__container {
         grid-template-columns: 1fr 2fr;
     }
-
-
 }
 
 @media screen and (max-width: 485px) {

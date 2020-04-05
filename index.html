@@ -31,7 +31,8 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="district-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_district">
+                        <input id="district-selector" class="search__select" autocomplete="off"
+                               data-locale-placeholder="choose_district">
                         <div id="district-selector-container" class="selector-container"
                              style="display: none; z-index: 2">
 
@@ -46,7 +47,8 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="city-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_city">
+                        <input id="city-selector" class="search__select" autocomplete="off"
+                               data-locale-placeholder="choose_city">
                         <div id="city-selector-container" class="selector-container" style="display: none;">
 
                         </div>
@@ -60,7 +62,8 @@
                                   fill="black" fill-opacity="0.54"/>
                         </svg>
 
-                        <input id="warehouse-selector" class="search__select" autocomplete="off" data-locale-placeholder="choose_warehouse">
+                        <input id="warehouse-selector" class="search__select" autocomplete="off"
+                               data-locale-placeholder="choose_warehouse">
                         <div id="warehouse-selector-container" class="selector-container" style="display: none;">
 
                         </div>
@@ -77,23 +80,19 @@
 
                 <div class="expanded-search">
                     <section class="expanded-search__buttons">
-                        <div data-toggle="collapse" data-target="#collapse-content" aria-expanded="false"
+                        <div class="expanded-search__toggle" data-toggle="collapse" data-target="#collapse-content"
+                             aria-expanded="false"
                              aria-controls="collapse-content">
                             <span id="collapsable-section-title" class="activate" data-locale="advanced_search"></span>
                             <span id="collapsable-section-img">
                                 <img src="./images/arrow-down.svg" alt="">
                             </span>
 
-                            <div class="btn">
-                                <!--                                <label class="switch">-->
-                                <!--                                    <input id="collapsable-section-shevron" class="toggle" type="checkbox">-->
-                                <!--                                    <span class="slider"></span>-->
-                                <!--                                </label>-->
-                            </div>
+                            <div class="btn"></div>
                         </div>
 
                         <div id="clear-btn">
-                            <span data-locale="clear_all"></span>
+                            <span data-locale="clear_all" class="expanded-search__toggle"></span>
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.72125 1.33625C10.0133 1.04423 10.0133 0.57077 9.72125 0.27875C9.42923 -0.0132705 8.95577 -0.0132706 8.66375 0.27875L5 3.9425L1.33625 0.27875C1.04423 -0.013271 0.57077 -0.0132705 0.27875 0.27875C-0.0132705 0.57077 -0.0132706 1.04423 0.27875 1.33625L3.9425 5L0.27875 8.66375C-0.013271 8.95577 -0.0132705 9.42923 0.27875 9.72125C0.57077 10.0133 1.04423 10.0133 1.33625 9.72125L5 6.0575L8.66375 9.72125C8.95577 10.0133 9.42923 10.0133 9.72125 9.72125C10.0133 9.42923 10.0133 8.95577 9.72125 8.66375L6.0575 5L9.72125 1.33625Z"
@@ -110,7 +109,7 @@
 
                                 <select id="warehouse-type-selector" class="search__select .select_280">
                                     <option value="" selected data-locale="all_wh_types"></option>
-                                    <option value="Branch" data-locale="warehouses" ></option>
+                                    <option value="Branch" data-locale="warehouses"></option>
                                     <option value="Postomat" data-locale="postomats"></option>
                                     <option value="Office" data-locale="office"></option>
                                 </select>
@@ -159,7 +158,6 @@
 
         var $collapseContent = $('#collapse-content');
         var $collapseSectionTitle = $('#collapsable-section-title');
-        var $collapseSectionShevron =  $('#collapsable-section-shevron');
 
         var districts = [
             {
@@ -351,7 +349,7 @@
                         $citySelectorContainer.empty();
                     }
                 },
-                error: function() {
+                error: function () {
                     $citySelectorContainer.empty();
                 }
             });
@@ -414,7 +412,7 @@
                         $warehouseSelectorContainer.empty();
                     }
                 },
-                error: function() {
+                error: function () {
                     $warehouseSelectorContainer.empty();
                 }
             });
@@ -447,9 +445,9 @@
         }
 
         function getDescription(lang, src) {
-            if(lang === 'ru') {
+            if (lang === 'ru') {
                 return src.DescriptionRu;
-            } else if(lang === 'ua') {
+            } else if (lang === 'ua') {
                 return src.Description;
             }
 
@@ -457,9 +455,9 @@
         }
 
         function createTableRow(warehouse) {
-            var  partAddress = getDescription(currentLang, warehouse).split(':').slice(1).join('');
+            var partAddress = getDescription(currentLang, warehouse).split(':').slice(1).join('');
             var address = partAddress.match(/(.*)\(([^)]*)\)[^(]*$/) !== null
-                ? partAddress.match(/(.*)\(([^)]*)\)[^(]*$/).slice(1,2).join('')
+                ? partAddress.match(/(.*)\(([^)]*)\)[^(]*$/).slice(1, 2).join('')
                 : partAddress;
 
             var weigth = warehouse.TotalMaxWeightAllowed !== 0 ? warehouse.TotalMaxWeightAllowed : '30';
@@ -577,12 +575,12 @@
         }
 
         function localize(lang) {
-            $('[data-locale]').each(function(index, item){
+            $('[data-locale]').each(function (index, item) {
                 item.textContent = getString(lang, item.dataset.locale);
             });
 
-            $('[data-locale-placeholder]').each(function(index, item){
-                $(item).attr("placeholder", getString(lang, item.dataset.localePlaceholder));
+            $('[data-locale-placeholder]').each(function (index, item) {
+                $(item).attr('placeholder', getString(lang, item.dataset.localePlaceholder));
             });
         }
 
@@ -591,7 +589,7 @@
                 selectedDistrictRef = '';
             } else {
                 // User did not selected any value but input string is still valid e.g Киев
-                if(selectedDistrictRef === '') {
+                if (selectedDistrictRef === '') {
                     for (i = 0; i < districts.length; i++) {
                         var district = districts[i];
                         var ruName = district.DescriptionRu;
@@ -618,7 +616,7 @@
                 selectedCityRef = '';
             } else {
                 // User did not selected any value but input string is still valid e.g Киев
-                if(selectedCityRef === '') {
+                if (selectedCityRef === '') {
                     for (i = 0; i < citiesList.length; i++) {
                         var city = citiesList[i];
                         var ruName = city.DescriptionRu;
