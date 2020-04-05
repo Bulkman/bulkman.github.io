@@ -42,6 +42,7 @@ svg {
 
 .form-control {
     padding: 0;
+    cursor: pointer;
 }
 
 .o_search .n_form {
@@ -71,6 +72,22 @@ svg {
     border: 1px solid #D3D3D3;
     box-sizing: border-box;
     border-radius: 2px;
+}
+
+.form-control {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none;
+}
+
+.input-group-text {
+    background: none;
+    border: none;
+}
+
+.input-group-append {
+    margin-bottom: 0;
+    cursor: pointer;
 }
 
 .o_search .search__form_2 .text {
@@ -222,9 +239,10 @@ svg {
 
 .o_search .n_label {
     margin-right: 33px;
+    margin-bottom: 0;
     font-size: 13px;
-    line-height: 16px;
     color: #828282;
+    height: 18px;
 }
 
 .o_search .n_label:last-of-type {
@@ -269,7 +287,7 @@ svg {
     background: url("../images/arrow-down.svg");
 }
 
-.expanded-search__toggle {
+.expanded-search__toggle, #clear-btn {
     cursor: pointer;
 }
 
@@ -554,7 +572,7 @@ svg {
 .selector-container {
     height: 400px;
     position: absolute;
-    width: 250px;
+    width: 100%;
     top: 42px;
     background-color: #fff;
     /*overflow: hidden;*/
@@ -585,7 +603,7 @@ svg {
     text-align: center;
     color: #7D7D7D;
     transform: none !important;
-    top: -117px !important;
+    top: -124px !important;
     left: calc(50% - 54px) !important;
 }
 
