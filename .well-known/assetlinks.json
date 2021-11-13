@@ -10,5 +10,29 @@
                 "A0:2D:18:F5:37:C8:8E:51:B7:A9:5C:54:7E:C5:D6:65:8C:CD:77:9F:24:23:83:B4:6E:A8:F9:40:28:D1:4D:A5"
             ]
         }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.novaposhta.ua",
+            "sha256_cert_fingerprints": [
+                "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.novaposhta.ua",
+            "sha256_cert_fingerprints": [
+                "50:3A:22:DA:1B:94:B4:FD:25:06:05:B4:3E:26:37:79:06:54:DD:2B:91:BF:06:AC:90:92:31:1D:D6:A4:F8:67"
+            ]
+        }
     }
 ]
