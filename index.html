@@ -788,6 +788,11 @@
         localize(currentLang);
 
         getSettlementAreas();
+        
+        function receiveMessage(event) {
+            console.log(event);
+        }
+        window.addEventListener("message", receiveMessage, false);
     });
 </script>
 </body>
